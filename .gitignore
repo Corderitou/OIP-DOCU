@@ -1,0 +1,27 @@
+# Godot 4
+.godot/
+.import/
+export.cfg
+export_credentials.cfg
+*.translation
+
+# Datos generados
+oip_data/
+
+# Node
+node_modules/
+
+# IDE / editores
+.vs/
+.vscode/
+.idea/
+
+# Sistema operativo (Windows)
+Thumbs.db
+desktop.ini
+~$*
+
+# Temporales y respaldos
+*.log
+*.tmp
+*.bak
