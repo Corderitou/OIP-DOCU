@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=4 uid="uid://dwhi7e4yoyul6"]
+
+[ext_resource type="Script" path="res://src/Celda/celda.gd" id="1_celda"]
+[ext_resource type="PackedScene" uid="uid://cm5t31o7op1f3" path="res://celda/Celda.glb" id="2_glb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_celda"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_celda"]
+resource_local_to_scene = true
+size = Vector3(0.156, 0.01, 0.156)
+
+[node name="Celda" type="Node3D"]
+top_level = true
+script = ExtResource("1_celda")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 10
+collision_mask = 15
+mass = 0.02
+physics_material_override = SubResource("PhysicsMaterial_celda")
+can_sleep = false
+freeze = true
+ghost_collision_filtering_enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
+shape = SubResource("BoxShape3D_celda")
+
+[node name="CeldaModel" parent="RigidBody3D" instance=ExtResource("2_glb")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)

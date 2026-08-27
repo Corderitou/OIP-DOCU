@@ -1,0 +1,10 @@
+[gd_scene format=4 uid="uid://cyrl61enilr8l"]
+
+[ext_resource type="Script" uid="uid://6xeu3owbha5mm" path="res://src/VastagoNeumatico/vastago_neumatico.gd" id="1_8wula"]
+[ext_resource type="Script" uid="uid://mxpkwolblci8b" path="res://src/VastagoNeumatico/vastago_animator.gd" id="2_1je71"]
+
+[node name="VastagoNeumatico" type="Node3D"]
+script = ExtResource("1_8wula")
+
+[node name="VastagoNeumaticoAnimator" type="Node3D" parent="."]
+script = ExtResource("2_1je71")

@@ -25,3 +25,4 @@ desktop.ini
 *.log
 *.tmp
 *.bak
+.git-respaldo/

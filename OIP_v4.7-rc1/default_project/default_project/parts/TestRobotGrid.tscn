@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://c2kxbt51uuyxf"]
+
+[ext_resource type="PackedScene" uid="uid://dc6o7qkwd60ha" path="res://parts/SixAxisRobot.tscn" id="1_robot"]
+[ext_resource type="Script" uid="uid://djgrhr3nlttdu" path="res://parts/TestRobotGrid.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://dd2re8r78as81" path="res://parts/FlyCamera.gd" id="3_flycam"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(10, 0.01, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_block"]
+size = Vector3(0.25, 0.04, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_block"]
+size = Vector3(0.25, 0.04, 0.35)
+
+[node name="TestRobotGrid" type="Node3D" unique_id=1991512520]
+script = ExtResource("2_script")
+auto_run = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=249431686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -12.8)
+
+[node name="FloorShape" type="CollisionShape3D" parent="Floor" unique_id=457606253]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor" unique_id=543349272]
+mesh = SubResource("BoxMesh_floor")
+
+[node name="Robot" parent="." unique_id=1905667475 instance=ExtResource("1_robot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.890198, 0, -12.8)
+waypoints = {
+"1: Point1": Array[float]([-180.0, -36.5, 141.5, 0.0, 75.5, 0.0]),
+"2: Point12": Array[float]([138.23000000, -29.11000000, 129.72000000, -0.37982063, 79.05715077, -131.69899910]),
+"3: Point13": Array[float]([146.97000000, -15.19000000, 121.63000000, -0.43768286, 73.28791222, -122.90514267]),
+"4: Point14": Array[float]([153.25000000, -0.63000000, 109.29000000, 179.52810783, -71.11554099, 63.40185630]),
+"5: Point15": Array[float]([157.52000000, 13.20000000, 93.71000000, -0.48338153, 72.89938829, -112.33864251]),
+"6: Point16": Array[float]([-137.39000000, -29.12000000, 129.72000000, -0.37397287, 79.73871968, -47.32228141]),
+"7: Point17": Array[float]([-146.75000000, -15.19000000, 121.63000000, -0.43536025, 73.83459811, -56.62777526]),
+"8: Point18": Array[float]([-152.69000000, -0.63000000, 109.29000000, -0.46829140, 71.56998133, -62.54104582]),
+"9: Point19": Array[float]([-157.05000000, 13.20000000, 93.71000000, -0.48073951, 73.28552748, -66.91093597])
+}
+selected_waypoint = "1: Point1"
+new_waypoint_name = "Point20"
+vacuum_on = false
+j1_angle = -180.0
+j2_angle = -36.5
+j3_angle = 141.5
+j4_angle = 0.0
+j5_angle = 75.5
+tag_group_name = "PLCSIM"
+
+[node name="TestBlock2" type="RigidBody3D" parent="." unique_id=40414177]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock2" unique_id=1065844012]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock2" unique_id=1634564642]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock1" type="RigidBody3D" parent="." unique_id=522401556]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock1" unique_id=1867626461]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock1" unique_id=96208600]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock3" type="RigidBody3D" parent="." unique_id=2061440398]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock3" unique_id=1296672810]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock3" unique_id=2072906264]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock4" type="RigidBody3D" parent="." unique_id=260546744]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock4" unique_id=1950519822]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock4" unique_id=392318066]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock5" type="RigidBody3D" parent="." unique_id=470807936]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock5" unique_id=453447293]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock5" unique_id=1870179231]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock6" type="RigidBody3D" parent="." unique_id=124373077]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock6" unique_id=767304886]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock6" unique_id=130497353]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock7" type="RigidBody3D" parent="." unique_id=1086931128]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock7" unique_id=2001054083]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock7" unique_id=1580952398]
+mesh = SubResource("BoxMesh_block")
+
+[node name="TestBlock8" type="RigidBody3D" parent="." unique_id=249789220]
+transform = Transform3D(2.295, 0, 0, 0, 1.315, 0, 0, 0, 3.225, -8.7226715, 1, -12.8)
+collision_layer = 10
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 2
+
+[node name="BlockShape" type="CollisionShape3D" parent="TestBlock8" unique_id=1455981595]
+shape = SubResource("BoxShape3D_block")
+
+[node name="BlockMesh" type="MeshInstance3D" parent="TestBlock8" unique_id=44802904]
+mesh = SubResource("BoxMesh_block")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=70685472]
+transform = Transform3D(1, 0, 0, 0, 0.92775184, 0.37319785, 0, -0.37319785, 0.92775184, -9.620305, 1.7279425, -10.399147)
+fov = 60.0
+script = ExtResource("3_flycam")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1880795723]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -5, 5, -10)

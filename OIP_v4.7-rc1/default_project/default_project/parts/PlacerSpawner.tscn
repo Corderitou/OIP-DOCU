@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://vvvem3ucj33xv"]
+
+[ext_resource type="Script" path="res://src/PlacerSpawner/placer_spawner.gd" id="1_ps"]
+[ext_resource type="PackedScene" uid="uid://dp3kfrmljeiqq" path="res://parts/Placer.tscn" id="2_placer"]
+[ext_resource type="PackedScene" uid="uid://bjwmv4wef2don" path="res://assets/glb/Placer.glb" id="3_glb"]
+
+[node name="PlacerSpawner" type="Node3D" unique_id=1415663586]
+script = ExtResource("1_ps")
+scene = ExtResource("2_placer")
+spawn_velocity = Vector3(0, 0, 1)
+tag_group_name = "PLCSIM"
+metadata/hijack_scale = true
+
+[node name="PlacerModel" parent="." unique_id=1839793040 instance=ExtResource("3_glb")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)

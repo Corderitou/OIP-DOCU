@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cawf4jguvoi3u"]
+
+[ext_resource type="PackedScene" uid="uid://dwhi7e4yoyul6" path="res://parts/Celda.tscn" id="1_072a5"]
+[ext_resource type="PackedScene" uid="uid://dp3kfrmljeiqq" path="res://parts/Placer.tscn" id="2_2xags"]
+[ext_resource type="Script" uid="uid://dubgcktxano06" path="res://src/Tira/tira_bundle_example.gd" id="3_072a5"]
+
+[node name="Node3D" type="Node3D" unique_id=1058054903]
+
+[node name="1Celda" parent="." unique_id=57583022 instance=ExtResource("1_072a5")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -12.739, 0.983, -12.15)
+
+[node name="2Celda" parent="." unique_id=717680144 instance=ExtResource("1_072a5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.911, 0.983, -12.15)
+
+[node name="2Placer" parent="." unique_id=1539698135 instance=ExtResource("2_2xags")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -12.911318, 0.982, -12.15)
+
+[node name="1Placer" parent="." unique_id=1316387532 instance=ExtResource("2_2xags")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -12.739, 0.982, -12.15)
+
+[node name="3Celda" parent="." unique_id=1232200842 instance=ExtResource("1_072a5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.083, 0.983, -12.15)
+
+[node name="3Placer" parent="." unique_id=1895507895 instance=ExtResource("2_2xags")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -13.083, 0.982, -12.15)
+
+[node name="TiraBundle" type="Node3D" parent="." unique_id=163556973]
+transform = Transform3D(0.9999147, -0.011819173, 0.0055504064, 0.011816189, 0.99993, 0.00056989706, -0.0055567552, -0.00050425174, 0.99998444, -13.309836, 1.0005668, -12.164794)
+script = ExtResource("3_072a5")

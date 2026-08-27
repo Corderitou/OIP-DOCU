@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b2m3rpracg1r3"]
+
+[ext_resource type="Script" uid="uid://stroaf1d6m3w" path="res://src/Stringer/stringer.gd" id="1_stringer"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_head"]
+albedo_color = Color(0.1, 0.4, 0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_head"]
+material = SubResource("StandardMaterial3D_head")
+size = Vector3(0.2, 0.04, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ms3o6"]
+size = Vector3(0.1427002, 0.072631836, 0.030723572)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grab_area"]
+resource_local_to_scene = true
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Stringer" type="Node3D" unique_id=1739891134]
+script = ExtResource("1_stringer")
+
+[node name="Head" type="Node3D" parent="." unique_id=1932847811]
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Head" unique_id=1193613257]
+mesh = SubResource("BoxMesh_head")
+
+[node name="picker" type="MeshInstance3D" parent="Head" unique_id=1039123947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008276105, 0.0023338199, 0.047348186)
+mesh = SubResource("BoxMesh_ms3o6")
+
+[node name="GrabArea#CollisionShape3D" type="CollisionShape3D" parent="Head/picker" unique_id=2097212694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0008276105, -0.0023338199, 0.023813665)
+shape = SubResource("BoxShape3D_grab_area")
+
+[node name="GrabArea" type="Area3D" parent="Head/picker" unique_id=727571644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0008276105, -0.0023338199, 0.024767675)
+collision_layer = 0
+collision_mask = 6

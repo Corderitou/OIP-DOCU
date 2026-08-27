@@ -1,0 +1,451 @@
+[gd_scene format=3 uid="uid://du8q31sbxhd14"]
+
+[ext_resource type="PackedScene" uid="uid://dyhvoundu2kqc" path="res://parts/Building.tscn" id="1_w5m0l"]
+[ext_resource type="Script" uid="uid://1it35d0vq4ou" path="res://parts/building_wall_rule.gd" id="3_lsr5j"]
+[ext_resource type="PackedScene" uid="uid://dm55h6ap605bw" path="res://parts/BeltConveyor.tscn" id="3_uobxk"]
+[ext_resource type="Script" uid="uid://dfskhbqfkklts" path="res://src/Conveyor/belt_segment.gd" id="4_mpm82"]
+[ext_resource type="PackedScene" uid="uid://30llm7kupm2o" path="res://parts/CeldaSpawner.tscn" id="5_mpm82"]
+[ext_resource type="Script" uid="uid://8r05hs7nkh55" path="res://src/SideGuards/side_guard_opening.gd" id="5_vtp77"]
+[ext_resource type="PackedScene" uid="uid://c8kstr3amcam1" path="res://parts/CameraStreamer.tscn" id="6_mpm82"]
+[ext_resource type="PackedScene" uid="uid://cyrl61enilr8l" path="res://parts/VastagoNeumatico.tscn" id="8_qdflh"]
+[ext_resource type="PackedScene" uid="uid://dc6o7qkwd60ha" path="res://parts/SixAxisRobot.tscn" id="9_crdol"]
+[ext_resource type="PackedScene" uid="uid://cusis6cptvd4s" path="res://parts/Maquina1.tscn" id="10_w5m0l"]
+[ext_resource type="PackedScene" uid="uid://kdpe7o4ec1fa" path="res://parts/DiffuseSensor.tscn" id="11_liksr"]
+[ext_resource type="PackedScene" uid="uid://dynjvl0ex7ib8" path="res://parts/IndexingBeltConveyor.tscn" id="12_idxbelt"]
+[ext_resource type="PackedScene" uid="uid://x7ajd6h1vd07" path="res://parts/ColorSensor.tscn" id="13_wnud8"]
+[ext_resource type="PackedScene" uid="uid://ckt1os82p3p52" path="res://parts/PlacerSpawner.tscn" id="14_wqnqx"]
+[ext_resource type="PackedScene" uid="uid://bukvl3raex3u2" path="res://parts/Gantry.tscn" id="15_powme"]
+[ext_resource type="PackedScene" uid="uid://cd0sandw2st0n" path="res://parts/SandwichStation.tscn" id="16_sandwichstation"]
+[ext_resource type="PackedScene" uid="uid://bjw5j0lt8nk6k" path="res://parts/Horno.tscn" id="17_horno"]
+[ext_resource type="Script" uid="uid://dd02piu1c6bn0" path="res://src/Simulation/simulation_scene.gd" id="18_simulation"]
+[ext_resource type="Script" uid="uid://c3h0rxlsadsku" path="res://src/CameraFly/camera_fly.gd" id="19_camerafly"]
+
+[sub_resource type="Resource" id="Resource_4bf66"]
+script = ExtResource("3_lsr5j")
+count = 2
+start = 1
+metadata/_custom_type_script = "uid://1it35d0vq4ou"
+
+[sub_resource type="Resource" id="Resource_ymq1x"]
+script = ExtResource("3_lsr5j")
+count = 2
+start = 24
+metadata/_custom_type_script = "uid://1it35d0vq4ou"
+
+[sub_resource type="Resource" id="Resource_2wb5a"]
+script = ExtResource("3_lsr5j")
+wall = 0
+gap = 2
+count = 2
+start = 32
+metadata/_custom_type_script = "uid://1it35d0vq4ou"
+
+[sub_resource type="Resource" id="Resource_522rc"]
+script = ExtResource("3_lsr5j")
+wall = 0
+gap = 2
+count = 2
+start = 28
+metadata/_custom_type_script = "uid://1it35d0vq4ou"
+
+[sub_resource type="Resource" id="Resource_wqnqx"]
+script = ExtResource("3_lsr5j")
+wall = 4
+count = 1
+start = 2
+door_count = 2
+metadata/_custom_type_script = "uid://1it35d0vq4ou"
+
+[sub_resource type="Resource" id="Resource_wxp3n"]
+resource_local_to_scene = true
+script = ExtResource("4_mpm82")
+length = 4.3149999999999995
+metadata/_belt_conveyor_owner = 2414778335095
+
+[sub_resource type="Resource" id="Resource_cw4f7"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 3.8693137
+arc_front = 4.341
+metadata/_curved_host = false
+metadata/_owner_id = 2414778335095
+
+[sub_resource type="Resource" id="Resource_tjx6k"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 4.339
+arc_front = 4.341
+metadata/_curved_host = false
+metadata/_owner_id = 2414778335095
+
+[sub_resource type="Resource" id="Resource_ctukn"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 3.8760326
+arc_front = 4.341
+side = "right"
+metadata/_curved_host = false
+metadata/_owner_id = 2414778335095
+
+[sub_resource type="Resource" id="Resource_g4tgt"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 4.339
+arc_front = 4.341
+side = "right"
+metadata/_curved_host = false
+metadata/_owner_id = 2414778335095
+
+[sub_resource type="Resource" id="Resource_attc7"]
+resource_local_to_scene = true
+script = ExtResource("4_mpm82")
+length = 1.975
+metadata/_belt_conveyor_owner = 2415097102308
+
+[sub_resource type="Resource" id="Resource_hv45w"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 3.8693137
+arc_front = 4.341
+metadata/_curved_host = false
+metadata/_owner_id = 2415097102308
+
+[sub_resource type="Resource" id="Resource_k404q"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 4.339
+arc_front = 4.341
+metadata/_curved_host = false
+metadata/_owner_id = 2415097102308
+
+[sub_resource type="Resource" id="Resource_t5ieh"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 3.8760326
+arc_front = 4.341
+side = "right"
+metadata/_curved_host = false
+metadata/_owner_id = 2415097102308
+
+[sub_resource type="Resource" id="Resource_0nkqj"]
+resource_local_to_scene = true
+script = ExtResource("5_vtp77")
+arc_back = 4.339
+arc_front = 4.341
+side = "right"
+metadata/_curved_host = false
+metadata/_owner_id = 2415097102308
+
+[sub_resource type="Resource" id="Resource_od3os"]
+resource_local_to_scene = true
+script = ExtResource("4_mpm82")
+length = 0.6449999999999999
+metadata/_belt_conveyor_owner = 2415482978297
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tope"]
+size = Vector3(0.03, 0.12, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tope"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tope"]
+material = SubResource("StandardMaterial3D_tope")
+size = Vector3(0.03, 0.12, 0.6)
+
+[node name="Simulation" type="Node3D" unique_id=1483178388]
+script = ExtResource("18_simulation")
+
+[node name="MainCamera" type="Camera3D" parent="." unique_id=37030670]
+transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, -13.5, 4.5, -6)
+current = true
+fov = 55.0
+far = 100.0
+script = ExtResource("19_camerafly")
+
+[node name="Building" parent="." unique_id=183560046 instance=ExtResource("1_w5m0l")]
+rules = Array[ExtResource("3_lsr5j")]([SubResource("Resource_4bf66"), SubResource("Resource_ymq1x"), SubResource("Resource_2wb5a"), SubResource("Resource_522rc"), SubResource("Resource_wqnqx")])
+
+[node name="ETAPA 1" type="Node3D" parent="Building" unique_id=1559353247]
+
+[node name="BeltConveyor" parent="Building/ETAPA 1" unique_id=360974384 instance=ExtResource("3_uobxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.219, 1.06, -13.388)
+segments = Array[ExtResource("4_mpm82")]([SubResource("Resource_wxp3n")])
+width = 0.6
+height = 0.05
+speed = 0.0
+side_guard_openings = Array[ExtResource("5_vtp77")]([SubResource("Resource_cw4f7"), SubResource("Resource_tjx6k"), SubResource("Resource_ctukn"), SubResource("Resource_g4tgt")])
+legs_enabled = false
+enable_comms = true
+speed_tag_name = "ns=2;s=BeltConveyor_Speed"
+running_tag_name = "ns=2;s=BeltConveyor_Running"
+size = Vector3(4.3650002, 0.05, 0.6)
+metadata/_snap_transform = Callable()
+
+[node name="BeltConveyor3" parent="Building/ETAPA 1" unique_id=2112531876 instance=ExtResource("3_uobxk")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10.81, 1.06, -13.396)
+segments = Array[ExtResource("4_mpm82")]([SubResource("Resource_attc7")])
+width = 0.6
+height = 0.05
+speed = 0.0
+left_side_guards_enabled = false
+right_side_guards_enabled = false
+side_guard_openings = Array[ExtResource("5_vtp77")]([SubResource("Resource_hv45w"), SubResource("Resource_k404q"), SubResource("Resource_t5ieh"), SubResource("Resource_0nkqj")])
+legs_enabled = false
+enable_comms = true
+speed_tag_name = "ns=2;s=BeltConveyor3_Speed"
+running_tag_name = "ns=2;s=BeltConveyor3_Running"
+size = Vector3(2.025, 0.05, 0.6)
+metadata/_snap_transform = Callable()
+
+[node name="CeldaSpawner" parent="Building/ETAPA 1" unique_id=1589476516 instance=ExtResource("5_mpm82")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.001672, 1.4547727, -13.396449)
+spawn_offset = Vector3(0, -0.1, 0)
+spawn_velocity = Vector3(0, 0, 0)
+spawn_per_minute = 60
+enable_comms = true
+cmd_tag = "ns=2;s=S1_CMD"
+exec_tag = "ns=2;s=S1_EXEC"
+done_tag = "ns=2;s=S1_DONE"
+running_tag = "ns=2;s=S1_RUNNING"
+ready_tag = "ns=2;s=S1_READY"
+count_tag = "ns=2;s=S1_COUNT"
+auto_enable_tag = "ns=2;s=S1_AUTO_ENABLE"
+rate_tag = "ns=2;s=S1_RATE"
+
+[node name="BeltConveyor2" parent="Building/ETAPA 1" unique_id=445485070 instance=ExtResource("3_uobxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.854, 1.058, -13.388)
+segments = Array[ExtResource("4_mpm82")]([SubResource("Resource_od3os")])
+width = 0.6
+height = 0.05
+speed = 0.0
+left_side_guards_enabled = false
+right_side_guards_enabled = false
+legs_enabled = false
+enable_comms = true
+speed_tag_name = "ns=2;s=BeltConveyor2_Speed"
+running_tag_name = "ns=2;s=BeltConveyor2_Running"
+size = Vector3(0.69499993, 0.05, 0.6)
+metadata/_snap_transform = Callable()
+
+[node name="CameraStreamer" parent="Building/ETAPA 1" unique_id=1834920471 instance=ExtResource("6_mpm82")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -14.16, 1.615, -13.568511)
+streaming_enabled = false
+jpeg_quality = 0.5
+fov = 35.438
+
+[node name="VastagoNeumatico" parent="Building/ETAPA 1" unique_id=1713620922 instance=ExtResource("8_qdflh")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -14.154944, 1.1073663, -12.877878)
+extend_time = 1.0
+stroke_length = 0.655
+cylinder_length = 0.37
+cylinder_diameter = 0.05
+rod_diameter = 0.015
+enable_comms = true
+tag_group_name = "PLCSIM"
+tag_name = "ns=2;s=Vastago_Extend"
+
+[node name="ColorSensor" parent="Building/ETAPA 1" unique_id=2040135411 instance=ExtResource("13_wnud8")]
+transform = Transform3D(0.173913, 0, 0, 0, 0.173913, 0, 0, 0, 0.173913, -13.193624, 1.0260369, -13.4292555)
+show_beam = false
+tag_group_name = "PLCSIM"
+metadata/_snap_transform = Callable()
+
+[node name="ColorSensor2" parent="Building/ETAPA 1" unique_id=660751251 instance=ExtResource("13_wnud8")]
+transform = Transform3D(0.173913, 0, 3.0407914e-08, 0, 0.173913, 0, -3.0407914e-08, 0, 0.173913, -12.812705, 1.0260369, -13.433808)
+show_beam = false
+tag_group_name = "PLCSIM"
+metadata/_snap_transform = Callable()
+
+[node name="SensorPlacers" parent="Building/ETAPA 1" unique_id=1915908865 instance=ExtResource("11_liksr")]
+transform = Transform3D(0.173913, 0, 0, 0, 0.173913, 0, 0, 0, 0.173913, -12.726395, 1.0183206, -13.80368)
+max_range = 0.685
+enable_comms = true
+tag_group_name = "PLCSIM"
+tag_name = "ns=2;s=SensorPlacers"
+metadata/_snap_transform = Callable()
+
+[node name="SensorCeldas" parent="Building/ETAPA 1" unique_id=1627376665 instance=ExtResource("11_liksr")]
+transform = Transform3D(0.173913, 0, 0, 0, 0.173913, 0, 0, 0, 0.173913, -13.270951, 1.0153147, -13.777999)
+show_beam = false
+enable_comms = true
+tag_group_name = "PLCSIM"
+tag_name = "ns=2;s=SensorCeldas"
+metadata/_snap_transform = Callable()
+
+[node name="Gantry" parent="Building/ETAPA 1" unique_id=2134443764 instance=ExtResource("15_powme")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, -14.29692, 0, -12.748)
+home_position = Array[float]([2.3149999999999995, -1.4260000000000002, 1.214])
+waypoints = {
+"1: Point1": Array[float]([2.3149999999999995, -1.4260000000000002, 1.634]),
+"2: Point2": Array[float]([2.3149999999999995, 1.2940000000000005, 1.129]),
+"3: Point3": Array[float]([2.359999999999999, 1.2940000000000005, 1.659])
+}
+motion_speed = 10.0
+selected_waypoint = "3: Point3"
+new_waypoint_name = "Point4"
+frame_length = 4.95
+frame_width = 5.6
+frame_height = 4.29
+x_position = 2.3149999999999995
+y_position = -1.2454444501399995
+z_position = 1.2083576390668749
+vacuum_area_offset = Vector3(0, -0.02, 0)
+enable_comms = true
+tag_group_name = "PLCSIM"
+command_tag = "ns=2;s=Gantry1_Command"
+execute_tag = "ns=2;s=Gantry1_Execute"
+done_tag = "ns=2;s=Gantry1_Done"
+vacuum_tag = "ns=2;s=Gantry1_Vacuum"
+metadata/_edit_lock_ = true
+
+[node name="Gantry2" parent="Building/ETAPA 1" unique_id=72701500 instance=ExtResource("15_powme")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, -12.78, 0, -12.748)
+home_position = Array[float]([0.02500000000000035, -1.4299999999999995, 1.214])
+waypoints = {
+"1: Point1": Array[float]([0.025, -1.4299999999999995, 1.669]),
+"2: Point2": Array[float]([-2.355, 1.2940000000000005, 1.261]),
+"3: Point3": Array[float]([-2.23, 1.2940000000000005, 1.659])
+}
+motion_speed = 10.0
+selected_waypoint = "3: Point3"
+new_waypoint_name = "Point4"
+frame_length = 1.44
+frame_width = 5.6
+frame_height = 4.29
+x_position = -0.66
+y_position = 1.2940000000000005
+z_position = 1.659
+vacuum_area_offset = Vector3(0, -0.035, 0)
+enable_comms = true
+tag_group_name = "PLCSIM"
+command_tag = "ns=2;s=Gantry2_Command"
+execute_tag = "ns=2;s=Gantry2_Execute"
+done_tag = "ns=2;s=Gantry2_Done"
+vacuum_tag = "ns=2;s=Gantry2_Vacuum"
+metadata/_edit_lock_ = true
+
+[node name="IndexingBeltConveyor3" parent="Building/ETAPA 1" unique_id=1124995580 instance=ExtResource("12_idxbelt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.310758, 0.98244756, -12.161912)
+length = 2.695
+height = 0.03
+step_distance = 0.165
+step_speed = 0.1
+belt_color = Color(0.72578746, 0.68369764, 0.59512454, 1)
+enable_comms = true
+tag_group_name = "PLCSIM"
+step_tag = "ns=2;s=IndexingBelt3_Step"
+running_tag = "ns=2;s=IndexingBelt3_Running"
+metadata/_snap_transform = Callable()
+
+[node name="IndexingBeltConveyor4" parent="Building/ETAPA 1" unique_id=1370869476 instance=ExtResource("12_idxbelt")]
+transform = Transform3D(-3.9777365e-08, 0, 1.925, 0, 0.255, 0, -0.91, 0, -8.414442e-08, -8.816082, 0.761607, -11.750714)
+length = 2.695
+height = 0.03
+step_distance = 0.165
+step_speed = 0.1
+belt_color = Color(0.72578746, 0.68369764, 0.59512454, 1)
+tag_group_name = "PLCSIM"
+step_tag = "ns=2;s=IndexingBelt3_Step"
+running_tag = "ns=2;s=IndexingBelt3_Running"
+metadata/_snap_transform = Callable()
+
+[node name="Maquina1" parent="Building/ETAPA 1" unique_id=601466269 instance=ExtResource("10_w5m0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.412, 0.998, -12.167)
+z_position = 0.0
+motion_speed = 0.0
+enable_comms = true
+
+[node name="PlacerSpawner" parent="Building/ETAPA 1" unique_id=1415663586 instance=ExtResource("14_wqnqx")]
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, -11.889742, 1.3340129, -13.395435)
+spawn_offset = Vector3(0, 0, 0)
+spawn_velocity = Vector3(0, 0, 0)
+enable_comms = true
+cmd_tag = "ns=2;s=S2_CMD"
+exec_tag = "ns=2;s=S2_EXEC"
+done_tag = "ns=2;s=S2_DONE"
+running_tag = "ns=2;s=S2_RUNNING"
+ready_tag = "ns=2;s=S2_READY"
+count_tag = "ns=2;s=S2_COUNT"
+auto_enable_tag = "ns=2;s=S2_AUTO_ENABLE"
+rate_tag = "ns=2;s=S2_RATE"
+
+[node name="SandwichStation" parent="." unique_id=49269669 instance=ExtResource("16_sandwichstation")]
+transform = Transform3D(0.65, 0, 0, 0, 0.275, 0, 0, 0, 0.48, -12.724542, 1.0615056, -12.16)
+remove_on_stop = false
+
+[node name="SandwichProduct" type="CharacterBody3D" parent="." unique_id=774413311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.719044, 0.98244756, -12.16)
+top_level = true
+visible = false
+collision_layer = 0
+motion_mode = 1
+
+[node name="ProductUnits" type="Node3D" parent="SandwichProduct" unique_id=708474438]
+
+[node name="Horno" parent="." unique_id=774413310 instance=ExtResource("17_horno")]
+transform = Transform3D(0.35, 0, 0, 0, 0.26, 0, 0, 0, 0.275, -12.095593, 1.1675814, -12.16)
+head_move_time = 0.3
+thermal_tau = 3.0
+station_prefix = "ns=2;s=H1"
+cycle_time = 3.0
+enable_comms = true
+
+[node name="SixAxisRobot" parent="." unique_id=1030188336 instance=ExtResource("9_crdol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.980649, 0, -12.79993)
+home_position = Array[float]([29.82666698859729, -2.90000000000002, 54.73952192207821, 0.0, 81.30000000000001, 31.5])
+waypoints = {
+"10: Point18": Array[float]([-154.4313456177, -4.276781326, 112.9289780063, 3.478e-07, 71.3478047103, 115.568662616]),
+"11: Point19": Array[float]([-157.6826381646, 6.242233635, 102.1733088795, 4.251e-07, 71.584455622, 112.3173689948]),
+"1: Point1": Array[float]([29.82666699, -2.9, 101.1, 5.3e-07, 81.79999916, 29.82665835]),
+"2: Point2": Array[float]([-38.19999999999999, -28.40000000000001, 83.19999999999999, 0.0, 81.30000000000001, 31.5]),
+"3: Point3": Array[float]([-38.19999999999999, -28.40000000000001, 104.23, 1.0, 92.3, -38.5]),
+"4: Point12": Array[float]([145.0850436416, -26.1070047265, 128.4110435208, -180.0, -77.6959654436, -124.9149711779]),
+"5: Point13": Array[float]([150.7392354607, -15.0420404517, 121.6781828532, -179.9999984054, -73.3638598835, -119.2607789948]),
+"6: Point14": Array[float]([154.9247379143, -4.2633035063, 112.9166010335, -180.0, -71.3467035011, -115.0752698049]),
+"7: Point15": Array[float]([158.1161682722, 6.2536839929, 102.160411819, -180.0, -71.5859042967, -111.8838528359]),
+"8: Point16": Array[float]([-144.4165168176, -26.1281342967, 128.4218330091, 5.136e-07, 77.7063036303, 125.5834849103]),
+"9: Point17": Array[float]([-150.1695368152, -15.0586455502, 121.6899564775, -180.0, -73.3686922693, -60.1695290213])
+}
+motion_speed = 180.0
+selected_waypoint = "11: Point19"
+new_waypoint_name = "Point20"
+vacuum_on = false
+tool_size_x = 1.4284989055309791
+tool_size_z = 0.10289033595735712
+j1_angle = 180.0
+j2_angle = -8.522718697405445
+j3_angle = 118.85890552436302
+j4_angle = -13.779968989098856
+j5_angle = 49.0951474955572
+j6_angle = 97.04604381807141
+robot_scale = 0.7
+enable_comms = true
+tag_group_name = "PLCSIM"
+command_tag = "ns=2;s=Robot1_Command"
+execute_tag = "ns=2;s=Robot1_Execute"
+done_tag = "ns=2;s=Robot1_Done"
+vacuum_tag = "ns=2;s=Robot1_Vacuum"
+
+[node name="SensorBatch" parent="." unique_id=919522286 instance=ExtResource("11_liksr")]
+transform = Transform3D(-0.173913, 0, -1.5203957e-08, 0, 0.173913, 0, 1.5203957e-08, 0, -0.173913, -10.649586, 0.9425789, -11.751952)
+max_range = 0.554
+enable_comms = true
+tag_group_name = "PLCSIM"
+tag_name = "ns=2;s=6axisSensor1"
+metadata/_snap_transform = Callable()
+
+[node name="TopeBatch" parent="." unique_id=379262560 instance=ExtResource("11_liksr")]
+transform = Transform3D(-0.173913, 0, -1.5203957e-08, 0, 0.173913, 0, 1.5203957e-08, 0, -0.173913, -10.611671, 0.94602454, -12.083578)
+max_range = 0.224
+tag_group_name = "PLCSIM"
+tag_name = "ns=2;s=6axisSensor1"
+metadata/_snap_transform = Callable()
+
+[node name="TopeFisico" type="StaticBody3D" parent="." unique_id=780611001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.621, 1, -12.16)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TopeFisico" unique_id=780611002]
+shape = SubResource("BoxShape3D_tope")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TopeFisico" unique_id=780611003]
+mesh = SubResource("BoxMesh_tope")

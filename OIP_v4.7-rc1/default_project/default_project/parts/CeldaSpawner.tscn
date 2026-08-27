@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://30llm7kupm2o"]
+
+[ext_resource type="Script" uid="uid://cw33ailjalqxw" path="res://src/CeldaSpawner/celda_spawner.gd" id="1_cs"]
+[ext_resource type="PackedScene" uid="uid://dwhi7e4yoyul6" path="res://parts/Celda.tscn" id="2_7g6bm"]
+[ext_resource type="PackedScene" uid="uid://cm5t31o7op1f3" path="res://celda/Celda.glb" id="2_glb"]
+
+[node name="CeldaSpawner" type="Node3D" unique_id=1415663576]
+script = ExtResource("1_cs")
+scene = ExtResource("2_7g6bm")
+spawn_velocity = Vector3(0, 0, 1)
+tag_group_name = "PLCSIM"
+metadata/hijack_scale = true
+
+[node name="CeldaModel" parent="." unique_id=1839793039 instance=ExtResource("2_glb")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)

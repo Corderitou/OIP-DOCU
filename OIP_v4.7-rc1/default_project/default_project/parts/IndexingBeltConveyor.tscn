@@ -1,0 +1,11 @@
+[gd_scene format=4 uid="uid://dynjvl0ex7ib8"]
+
+[ext_resource type="Script" uid="uid://6ovb2qxd111d" path="res://src/IndexingBeltConveyor/indexing_belt_conveyor.gd" id="1_idxbelt"]
+
+[node name="IndexingBeltConveyor" type="Node3D"]
+script = ExtResource("1_idxbelt")
+length = 1.0
+width = 0.6
+height = 0.5
+step_distance = 0.16
+step_speed = 0.2

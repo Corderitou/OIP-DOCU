@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bkcsal3lmb8yj"]
+
+[ext_resource type="Script" uid="uid://disp5n3j2ky8" path="res://src/Dispenser/dispenser.gd" id="1_dispenser"]
+[ext_resource type="PackedScene" uid="uid://bprbeju6p0wmk" path="res://parts/Tira.tscn" id="2_syk4c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dispenser"]
+resource_local_to_scene = true
+margin = 0.0
+size = Vector3(0.2, 0.15, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dispenser"]
+albedo_color = Color(0.55, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dispenser"]
+material = SubResource("StandardMaterial3D_dispenser")
+size = Vector3(0.2, 0.15, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ms3o6"]
+size = Vector3(0.012939453, 0.071258545, 0.14016533)
+
+[node name="Dispenser" type="Node3D" unique_id=650774125]
+script = ExtResource("1_dispenser")
+scene = ExtResource("2_syk4c")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1124539067]
+collision_layer = 6
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=1118057291]
+shape = SubResource("BoxShape3D_dispenser")
+
+[node name="SpawnPoint" type="Node3D" parent="." unique_id=934598085]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11695843, -0.0034962073, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=804787931]
+mesh = SubResource("BoxMesh_dispenser")
+
+[node name="dispenserhead" type="MeshInstance3D" parent="." unique_id=1559934972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10217285, 0.0013580322, 0.0027742386)
+mesh = SubResource("BoxMesh_ms3o6")

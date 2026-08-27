@@ -1,0 +1,34 @@
+[gd_scene format=4 uid="uid://4woa0y3y4040"]
+
+[ext_resource type="Script" path="res://src/Laminadora/laminadora.gd" id="1_lam"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.45, 0.48, 0.53, 1)
+roughness = 0.5
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_plate"]
+albedo_color = Color(0.3, 0.18, 0.12, 1)
+roughness = 0.3
+emission_enabled = false
+emission = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+material = SubResource("Mat_body")
+size = Vector3(2, 1.2, 1.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plate"]
+material = SubResource("Mat_plate")
+size = Vector3(1.8, 0.06, 1.2)
+
+[node name="Laminadora" type="Node3D"]
+script = ExtResource("1_lam")
+station_prefix = "S5"
+cycle_time = 15.0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_body")
+
+[node name="HeaterVisual" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+mesh = SubResource("BoxMesh_plate")

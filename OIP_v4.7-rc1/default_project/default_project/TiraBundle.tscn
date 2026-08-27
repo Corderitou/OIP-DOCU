@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=4 uid="uid://hmh3ul2npgxd"]
+
+[ext_resource type="Script" uid="uid://si8hvr6633it" path="res://src/Tira/tira_bundle.gd" id="1_vx2d0"]
+[ext_resource type="PackedScene" uid="uid://bprbeju6p0wmk" path="res://parts/Tira.tscn" id="2_tira"]
+
+[node name="TiraBundle" type="Node3D"]
+transform = Transform3D(0.9999147, -0.011819173, 0.0055504064, 0.011816189, 0.99993, 0.00056989706, -0.0055567552, -0.00050425174, 0.99998444, -13.309836, 1.0005668, -12.164794)
+script = ExtResource("1_vx2d0")
+
+[node name="TiraL" parent="." instance=ExtResource("2_tira")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, 0)
+
+[node name="TiraR" parent="." instance=ExtResource("2_tira")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0, 0)

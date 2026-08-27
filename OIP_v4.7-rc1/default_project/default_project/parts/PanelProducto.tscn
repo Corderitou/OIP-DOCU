@@ -1,0 +1,50 @@
+[gd_scene format=4 uid="uid://3eragahjrt8g"]
+
+[ext_resource type="Script" path="res://src/Productos/panel_producto.gd" id="1_panel"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_panel"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
+size = Vector3(0.99, 0.02, 0.99)
+
+[sub_resource type="StandardMaterial3D" id="Mat_panel"]
+albedo_color = Color(0.08, 0.16, 0.42, 1)
+roughness = 0.25
+metallic = 0.1
+
+[sub_resource type="StandardMaterial3D" id="Mat_frame"]
+albedo_color = Color(0.65, 0.66, 0.7, 1)
+roughness = 0.35
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_panel"]
+material = SubResource("Mat_panel")
+size = Vector3(0.99, 0.02, 0.99)
+
+[sub_resource type="BoxMesh" id="BoxMesh_frame"]
+material = SubResource("Mat_frame")
+size = Vector3(1.03, 0.035, 1.03)
+
+[node name="PanelProducto" type="Node3D"]
+top_level = true
+script = ExtResource("1_panel")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 10
+collision_mask = 15
+mass = 8.0
+physics_material_override = SubResource("PhysicsMaterial_panel")
+can_sleep = false
+freeze = true
+ghost_collision_filtering_enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_panel")
+
+[node name="Body" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_panel")
+
+[node name="Frame" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.012, 0)
+mesh = SubResource("BoxMesh_frame")

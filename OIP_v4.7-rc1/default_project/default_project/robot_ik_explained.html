@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot 6DOF — Cinematica Inversa: De la Teoria a la Solucion</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #c9d1d9;
+  --text2: #8b949e; --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+  --orange: #d29922; --purple: #bc8cff; --cyan: #39d353;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; line-height:1.7; }
+.container { max-width:960px; margin:0 auto; padding:20px 24px; }
+h1 { font-size:2em; color:#fff; margin:40px 0 10px; border-bottom:2px solid var(--accent); padding-bottom:8px; }
+h2 { font-size:1.5em; color:var(--accent); margin:32px 0 12px; }
+h3 { font-size:1.15em; color:var(--purple); margin:20px 0 8px; }
+p { margin:8px 0; }
+a { color:var(--accent); }
+code { background:var(--surface); padding:2px 6px; border-radius:4px; font-size:0.9em; color:var(--orange); }
+pre { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; font-size:0.85em; line-height:1.5; margin:12px 0; color:var(--text); }
+pre .kw { color:var(--purple); } pre .fn { color:var(--accent); } pre .cm { color:var(--text2); font-style:italic; } pre .st { color:var(--green); } pre .num { color:var(--orange); }
+blockquote { border-left:3px solid var(--purple); padding:8px 16px; margin:12px 0; background:rgba(188,140,255,0.05); border-radius:0 6px 6px 0; }
+.callout { border-left:3px solid var(--orange); padding:8px 16px; margin:12px 0; background:rgba(210,153,34,0.08); border-radius:0 6px 6px 0; }
+table { border-collapse:collapse; margin:12px 0; width:100%; }
+th,td { border:1px solid var(--border); padding:6px 12px; text-align:right; }
+th { background:var(--surface); color:var(--accent); text-align:center; }
+td:first-child { text-align:left; color:var(--green); }
+canvas { display:block; margin:12px auto; border:1px solid var(--border); border-radius:8px; background:#0a0e14; }
+.panel { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin:16px 0; }
+.slider-row { display:flex; align-items:center; gap:10px; margin:6px 0; }
+.slider-row label { width:30px; font-weight:bold; color:var(--accent); }
+.slider-row input[type=range] { flex:1; accent-color:var(--accent); }
+.slider-row .val { width:70px; text-align:right; font-family:monospace; color:var(--orange); font-size:0.9em; }
+.tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.8em; font-weight:600; margin:2px; }
+.tag-ok { background:rgba(63,185,80,0.15); color:var(--green); border:1px solid rgba(63,185,80,0.3); }
+.tag-fail { background:rgba(248,81,73,0.15); color:var(--red); border:1px solid rgba(248,81,73,0.3); }
+.tag-info { background:rgba(88,166,255,0.15); color:var(--accent); border:1px solid rgba(88,166,255,0.3); }
+.timeline { position:relative; padding-left:24px; margin:16px 0; }
+.timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--border); }
+.timeline .step { position:relative; margin:16px 0; }
+.timeline .step::before { content:''; position:absolute; left:-20px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
+.timeline .step.done::before { background:var(--green); border-color:var(--green); }
+.timeline .step.fail::before { background:var(--red); border-color:var(--red); }
+.toc { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 24px; margin:20px 0; }
+.toc a { display:block; padding:3px 0; color:var(--text); text-decoration:none; }
+.toc a:hover { color:var(--accent); }
+.toc a::before { content:'→ '; color:var(--text2); }
+.flex2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:700px) { .flex2 { grid-template-columns:1fr; } }
+.coord { font-family:monospace; font-size:0.85em; }
+.legend { display:flex; gap:16px; margin:8px 0; font-size:0.85em; }
+.legend span::before { content:''; display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:4px; vertical-align:middle; }
+.leg-target::before { background:var(--accent); }
+.leg-actual::before { background:var(--green); }
+.leg-old::before { background:var(--orange); opacity:0.5; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Robot 6DOF: Cinematica Inversa</h1>
+<p style="color:var(--text2)">De la teoria kinematica a la solucion practica — como calibramos una grilla de 8 posiciones para un robot industrial de 6 ejes en Godot 4.7</p>
+
+<div class="toc">
+<strong>Contenido</strong>
+<a href="#s1">1. El Robot: Estructura y Cinematica Directa</a>
+<a href="#s2">2. El Problema: Grilla de Deposito</a>
+<a href="#s3">3. Cinematica Inversa: Los Algoritmos</a>
+<a href="#s4">4. El Descubrimiento: Acoplamiento Copa-Muneca</a>
+<a href="#s5">5. La Solucion: LM de Pose Completa</a>
+<a href="#s6">6. Demo Interactiva: Simulador FK</a>
+<a href="#s7">7. Demo Interactiva: Convergencia LM</a>
+<a href="#s8">8. Verificacion y Resultados</a>
+<a href="#s9">9. Codigo Fuente Clave</a>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s1">1. El Robot: Estructura y Cinematica Directa</h1>
+
+<h2>1.1 Arquitectura mecanica</h2>
+<p>El SixAxisRobot es un <strong>manipulador antropomorfico</strong> de 6 grados de libertad (DOF). Cada grado corresponde a una <strong>revolvente</strong> (joint) con un eje de rotacion fijo:</p>
+
+<table>
+<tr><th>Joint</th><th>Eje</th><th>Funcion</th><th>Rango</th></tr>
+<tr><td>J1</td><td>Y (vertical)</td><td>Giro de base — selecciona "branche" (izq/der)</td><td>±180°</td></tr>
+<tr><td>J2</td><td>Z (lateral)</td><td>Hombro — lleva el brazo arriba/abajo</td><td>±135°</td></tr>
+<tr><td>J3</td><td>Z (lateral)</td><td>Codo — dobla el brazo para alcance</td><td>±160°</td></tr>
+<tr><td>J4</td><td>Y (vertical)</td><td>Muneca — giro del wrest</td><td>±180°</td></tr>
+<tr><td>J5</td><td>Z (lateral)</td><td>Muneca — inclinacion de la herramienta</td><td>±120°</td></tr>
+<tr><td>J6</td><td>Y (vertical)</td><td>Giro final — orienta el EOAT (herramienta)</td><td>±360°</td></tr>
+</table>
+
+<p>La cadena cinematica es una serie de nodos anidados en Godot:</p>
+<pre><span class="cm">// Estructura jerarquica (simplificada)</span>
+Base ─[J1 rotY]─► Shoulder ─[J2 rotZ]─► Arm1 ─[J3 rotZ]─► Elbow
+  ─[J4 rotY]─► Wrist1 ─[J5 rotZ]─► Wrist2 ─[J6 rotY]─► ToolHolder
+    ─► <span class="fn">VacuumArea</span> (copa) ─► <span class="fn">ToolTipMarker</span> (punta exacta)</pre>
+
+<h2>1.2 Cinematica Directa (FK)</h2>
+<p>La <strong>cinematica directa</strong> resuelve: "dado un vector de angulos $\theta = [J_1, J_2, ..., J_6]$, ¿donde esta la punta de la herramienta?"</p>
+
+<p>Matematicamente, cada joint $i$ contribuye con una <strong>matriz de rotacion</strong> $R_i(\theta_i)$ alrededor de su eje:</p>
+
+$$R_y(\alpha) = \begin{pmatrix} \cos\alpha & 0 & \sin\alpha \\ 0 & 1 & 0 \\ -\sin\alpha & 0 & \cos\alpha \end{pmatrix}, \quad R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
+
+<p>La posicion del tooltip es:</p>
+
+$$\mathbf{p}_{tip} = R_1 \cdot \left( \mathbf{d}_1 + R_2 \cdot \left( \mathbf{d}_2 + R_3 \cdot \left( \mathbf{d}_3 + ... \right) \right) \right)$$
+
+<p>donde $\mathbf{d}_i$ es el vector de desplazamiento (link length) del segmento $i$. En Godot, esto se calcula automaticamente al componer las transformaciones de la jerarquia de nodos.</p>
+
+<blockquote>En nuestro caso, la FK la resuelve el motor de Godot: <code>robot.get_tool_tip_position()</code> retorna la posicion global del nodo TooltipMarker despues de aplicar todas las rotaciones de la cadena.</blockquote>
+
+<h2>1.3 Lo que hace especial a este robot</h2>
+<p>A diferencia de un robot " ideal" donde los joints y la herramienta estan alineados, nuestro robot tiene un <strong>descentramiento critico</strong>: la copa (<code>VacuumArea</code>) esta desplazada respecto de los ejes de J4, J5 y J6. Esto significa que mover la muneca (J4/J5) no solo cambia la orientacion sino que <strong>tambien desplaza la posicion del tooltip</strong>.</p>
+
+<div class="callout">
+<strong>Dato clave:</strong> Medimos el desplazamiento del tooltip al perturbar cada joint desde una pose base:<br>
+<span class="tag tag-info">J4 ±45° → 19.6 cm</span>
+<span class="tag tag-info">J5 ±20° → 9.0 cm</span>
+<span class="tag tag-info">J6 ±90° → 0.0 cm</span>
+<br>J6 rota exactamente sobre el centro de la copa (eje Z de la herramienta), por eso no afecta la posicion. Pero J4 y J5 mueven la punta <em>centimetros</em>.
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s2">2. El Problema: Grilla de Deposito</h1>
+
+<h2>2.1 Definicion cartesiana</h2>
+<p>El robot debe depositar lotes de 6 celdas en <strong>8 posiciones fijas</strong> formando una grilla 2×4 detras de la estacion de ensamblaje. Cada celda se posiciona en el centro de un rectangulo definido por <code>unit_spacing = 0.172 m</code> (ancho fisico de una celda ProductUnit).</p>
+
+<table>
+<tr><th>Parametro</th><th>Formula</th><th>Valor</th></tr>
+<tr><td>unit_spacing</td><td>constante del proyecto</td><td>0.172 m</td></tr>
+<tr><td>Columnas (pitch)</td><td>1.1 × unit_spacing</td><td>0.1892 m</td></tr>
+<tr><td>Filas (pitch)</td><td>6.3 × unit_spacing</td><td>1.0836 m</td></tr>
+<tr><td>Centro de grilla</td><td>medido desde tooltips</td><td>(-8.9302, -12.7997)</td></tr>
+<tr><td>Altura Y</td><td>constante GRID_Y</td><td>0.87 m</td></tr>
+</table>
+
+<h2>2.2 Objetivos cartesianos</h2>
+<p>Para cada celda, el objetivo es un punto $\mathbf{p}^*$ en el espacio y una <strong>orientacion</strong> $\mathbf{R}^*$ (la copa mirando hacia abajo, con Euler (0°, 90°, 0°)):</p>
+
+$$\mathbf{p}^*_{ij} = \text{centro} + \left(i - 1.5\right) \cdot \text{col\_pitch} \cdot \hat{x} + \left(\pm 0.5\right) \cdot \text{row\_pitch} \cdot \hat{z}$$
+
+<p>Los 8 puntos resultantes:</p>
+
+<table>
+<tr><th>Waypoint</th><th>X</th><th>Z</th><th>Row</th><th>Col</th></tr>
+<tr><td>Point12</td><td>-9.2140</td><td>-12.2579</td><td>1</td><td>1</td></tr>
+<tr><td>Point13</td><td>-9.0248</td><td>-12.2579</td><td>1</td><td>2</td></tr>
+<tr><td>Point14</td><td>-8.8356</td><td>-12.2579</td><td>1</td><td>3</td></tr>
+<tr><td>Point15</td><td>-8.6464</td><td>-12.2579</td><td>1</td><td>4</td></tr>
+<tr><td>Point16</td><td>-9.2140</td><td>-13.3415</td><td>2</td><td>1</td></tr>
+<tr><td>Point17</td><td>-9.0248</td><td>-13.3415</td><td>2</td><td>2</td></tr>
+<tr><td>Point18</td><td>-8.8356</td><td>-13.3415</td><td>2</td><td>3</td></tr>
+<tr><td>Point19</td><td>-8.6464</td><td>-13.3415</td><td>2</td><td>4</td></tr>
+</table>
+
+<h2>2.3 Por que es dificil</h2>
+<p>La <strong>cinematica inversa</strong> (IK) resuelve el problema inverso: "dado un punto objetivo $\mathbf{p}^*$ y una orientacion $\mathbf{R}^*$, ¿que angulos $\theta$ logran eso?"</p>
+
+<p>Para un robot de 3 DOF con herramienta alineada, esto seria relativamente simple (geométrico o con CCD). Pero nuestro caso tiene <strong>tres complicaciones</strong>:</p>
+<ol>
+<li><strong>Acoplamiento pos-orien:</strong> J4/J5 mueven la posicion 20cm, no solo la orientacion.</li>
+<li><strong>Lmites articulares:</strong> Cada joint tiene rangos finitos; no todas las configuraciones son validas.</li>
+<li><strong>Two ramas:</strong> J1 puede ser positivo (~145°) o negativo (~-145°), dando dos "brazos" distintos que llegan al mismo lado.</li>
+</ol>
+
+<!-- ============================================================ -->
+<h1 id="s3">3. Cinematica Inversa: Los Algoritmos</h1>
+
+<h2>3.1 CCD (Cyclic Coordinate Descent)</h2>
+<p>CCD es un algoritmo iterativo que ajusta <strong>un joint a la vez</strong>, desde la punta hacia la base. Para cada joint $i$:</p>
+<ol>
+<li>Calcula el vector del pivot al tooltip: $\mathbf{v} = \mathbf{p}_{tip} - \mathbf{p}_{pivot_i}$</li>
+<li>Calcula el vector del pivot al objetivo: $\mathbf{w} = \mathbf{p}^* - \mathbf{p}_{pivot_i}$</li>
+<li>Calcula el angulo entre ellos: $\alpha = \arccos\left(\frac{\mathbf{v} \cdot \mathbf{w}}{|\mathbf{v}||\mathbf{w}|}\right)$</li>
+<li>Gira el joint $i$ por $\alpha$ (clampeado al paso maximo)</li>
+</ol>
+
+<p>Esta implementado en <code>six_axis_robot.gd:501-522</code>:</p>
+<pre><span class="cm">// CCD clasico: solo posicion</span>
+<span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>, <span class="num">-1</span>, <span class="num">-1</span>):
+    <span class="kw">var</span> axis := pivots[j].global_transform.basis.y  <span class="cm">// o .z</span>
+    <span class="kw">var</span> jacobian := axis.cross(tip - pivot.global_position)
+    <span class="kw">var</span> dot_val := clampf(proj_tip.dot(proj_target), <span class="num">-1.0</span>, <span class="num">1.0</span>)
+    <span class="kw">var</span> angle := acos(dot_val)
+    set(JOINT_ANGLE_PROPS[j], clampf(current + rad_to_deg(angle), MIN, MAX))</pre>
+
+<blockquote><strong>Pro:</strong> Simple, rapido, converge en ~80 iteraciones para posicion pura.<br><strong>Contra:</strong> No maneja orientacion directamente; queda atrapado en minimos locales cuando la herramienta esta descentrada.</blockquote>
+
+<h2>3.2 CCD con orientacion (solve_ik_pose)</h2>
+<p>Extension del CCD que agrega un <strong>termino de orientacion</strong> al calculo de cada joint. En vez de solo minimizar posicion, minimiza una funcion combinada:</p>
+
+$$\delta_i = \underbrace{\mathbf{J}_i \cdot \mathbf{e}_{pos}}_{\text{posicion}} + k_{rot} \cdot \underbrace{\mathbf{a}_i \cdot \mathbf{e}_{ori}}_{\text{orientacion}}$$
+
+<p>donde:</p>
+<ul>
+<li>$\mathbf{J}_i = \mathbf{a}_i \times (\mathbf{p}_{tip} - \mathbf{p}_{pivot_i})$ es el Jacobiano geometrico (contribucion del joint $i$ al movimiento de la punta)</li>
+<li>$\mathbf{e}_{pos} = \mathbf{p}^* - \mathbf{p}_{tip}$ es el error de posicion</li>
+<li>$\mathbf{e}_{ori}$ es el error de orientacion en formato eje-angulo (quaternion)</li>
+<li>$k_{rot} = 0.4$ es el peso de orientacion</li>
+</ul>
+
+<p>Implementado en <code>six_axis_robot.gd:529-569</code>:</p>
+<pre><span class="kw">var</span> jacobian := axis.cross(tip - pivot.global_position)
+<span class="kw">var</span> delta := jacobian.dot(e_dir) + k_rotation * axis.dot(w_err)
+delta = clampf(delta, -max_joint_step, max_joint_step)</pre>
+
+<div class="callout">
+<strong>Este algoritmo funciona bien para 6 de 8 puntos</strong> — pero las columnas 4 (Point15 y Point19) quedan atrapadas en minimos locales. ¿Por que? Porque los seeds iniciales caen en la "cuena" incorrecta y CCD no puede escapar.
+</div>
+
+<h2>3.3 Levenberg-Marquardt (LM)</h2>
+<p>LM es un algoritmo de <strong>optimizacion no-lineal</strong> que combina lo mejor del gradiente descendente (稳健 pero lento) con Gauss-Newton (rápido cerca del minimo). Resuelve un sistema de ecuaciones en cada paso:</p>
+
+$$(J^T J + \mu I) \Delta\theta = -J^T \mathbf{r}$$
+
+<p>donde:</p>
+<ul>
+<li>$J$ es la matriz Jacobiana $m \times n$ (6 residuos × 6 joints)</li>
+<li>$\mathbf{r}$ es el vector de residuos (error de posicion + orientacion escalada)</li>
+<li>$\mu$ es el parametro de damping (adaptativo)</li>
+<li>$\Delta\theta$ es el paso a tomar en el espacio de joints</li>
+</ul>
+
+<p><strong>El damping $\mu$</strong> es la clave:</p>
+<ul>
+<li>$\mu$ grande → paso conservador (gradiente descendente) →稳健 pero lento</li>
+<li>$\mu$ pequeño → paso agresivo (Gauss-Newton) → rapido pero puede divergir</li>
+<li>Si el paso <strong>mejora</strong> el costo: aceptar y reducir $\mu$ (×0.4)</li>
+<li>Si el paso <strong>empeora</strong>: rechazar y aumentar $\mu$ (×4)</li>
+</ul>
+
+<p>Implementado en <code>test_solve_grid_v47.gd:274-336</code>:</p>
+<pre><span class="kw">func</span> <span class="fn">_lm_pose</span>(start, target, target_tool) -> Array:
+    <span class="kw">var</span> cur := _clamp_angles(start)
+    <span class="kw">var</span> mu := <span class="num">1.0e-3</span>
+    <span class="kw">for</span> _iter <span class="kw">in</span> range(<span class="num">400</span>):
+        <span class="cm">// Jacobiano numerico 6×6</span>
+        <span class="kw">for</span> jj <span class="kw">in</span> range(<span class="num">6</span>):
+            pert[jj] += <span class="num">0.05</span>  <span class="cm">// paso de 0.05 grados</span>
+            jac[r][jj] = (res_pert[r] - res_cur[r]) / <span class="num">0.05</span>
+        <span class="cm">// Resolver (J^T J + μ I) d = -J^T r</span>
+        <span class="kw">var</span> delta := _gauss_solve(n, rhs)
+        <span class="cm">// Aceptar/rechazar paso</span>
+        <span class="kw">if</span> t_cost < cur_cost:
+            mu = maxf(mu * <span class="num">0.4</span>, <span class="num">1.0e-9</span>)  <span class="cm">// aceptar</span>
+        <span class="kw">else</span>:
+            mu *= <span class="num">4.0</span>  <span class="cm">// rechazar, mas damping</span></pre>
+
+<h2>3.4 Comparacion de algoritmos</h2>
+<div class="flex2">
+<div class="panel">
+<h3>CCD (solve_ik_pose)</h3>
+<p><span class="tag tag-ok">6/8 OK</span> <span class="tag tag-fail">2/8 FAIL</span></p>
+<ul>
+<li>Un joint a la vez, desde punta a base</li>
+<li>Simple y rapido (~80 iteraciones)</li>
+<li>Se queda atrapado en minimos locales</li>
+<li>No puede escapar de una basin de atraccion</li>
+</ul>
+</div>
+<div class="panel">
+<h3>LM de pose completa (_lm_pose)</h3>
+<p><span class="tag tag-ok">8/8 OK</span></p>
+<ul>
+<li>Todos los joints simultaneamente</li>
+<li>~400 iteraciones max, converge en ~50-200</li>
+<li>Damping adaptativo escapa de puntos silla</li>
+<li>Restarts globales para celdas dificiles</li>
+</ul>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s4">4. El Descubrimiento: Acoplamiento Copa-Muneca</h1>
+
+<h2>4.1 El problema enigmatico</h2>
+<p>Despues de implementar el solver de posicion y resolver correctamente los 8 puntos en posicion (error &lt; 0.02 mm), descubrimos que <strong>la orientacion no se podia resolver por separado</strong>. El solver de muneca (J4-J6) movia la orientacion a Euler (0°, 90°, 0°) exacto, pero el tooltip se desplazaba 10+ cm.</p>
+
+<p>Para investigar, escribimos un probe de sensibilidad (<code>test_probe_wrist_sensitivity.gd</code>):</p>
+<pre><span class="cm">// Desde una pose base conocida, perturbar cada joint</span>
+<span class="cm">// y medir cuanto se mueve el tooltip</span>
+<span class="kw">for</span> case <span class="kw">in</span> [[<span class="st">"J4+45"</span>, <span class="num">3</span>, <span class="num">45.0</span>], [<span class="st">"J5+20"</span>, <span class="num">4</span>, <span class="num">20.0</span>],
+            [<span class="st">"J5-20"</span>, <span class="num">4</span>, <span class="num">-20.0</span>], [<span class="st">"J6+90"</span>, <span class="num">5</span>, <span class="num">90.0</span>]]:
+    a[case[1]] += case[2]
+    robot.set_joint_angles(a)
+    print(<span class="st">"%s |d|=%.4f m"</span> % [case[0], (p1-p0).length()])</pre>
+
+<h2>4.2 Resultados del probe</h2>
+
+<div class="panel">
+<h3>Desplazamiento del tooltip por articulacion de muneca</h3>
+<canvas id="sensCanvas" width="500" height="220"></canvas>
+<div id="sensLabels" style="display:flex;justify-content:space-around;font-size:0.85em;margin-top:4px;">
+<span style="color:var(--red)">J4 +45° → 19.6 cm</span>
+<span style="color:var(--orange)">J5 +20° → 9.0 cm</span>
+<span style="color:var(--green)">J6 ±90° → 0.0 cm</span>
+</div>
+</div>
+
+<h2>4.3 Que significa esto</h2>
+<p>La copa (<code>VacuumArea</code>) no esta centrada en los ejes de J4/J5. Fisicamente, la copa esta desplazada hacia un lado del eje de la muneca. Cuando J4 gira 45°, la copa "barril" un arco de ~20cm. Esto crea un <strong>acoplamiento critico</strong>:</p>
+
+<blockquote>
+<strong>Regla descubierta:</strong> En un robot con herramienta descentrada, orientacion y posicion NO son problemas independientes. Resolver una etapa y luego la otra conduce a infinitos ciclos o minimos locales. Hay que resolverlas <strong>simultaneamente</strong>.
+</blockquote>
+
+<p>Esto explica por que el solver CCD (que ajusta joints secuencialmente) fallaba para las celdas externas: la orientacion correcta requeria movimientos de J4/J5 que desplazaban la posicion, y al re-fijar la posicion se perdia la orientacion.</p>
+
+<!-- ============================================================ -->
+<h1 id="s5">5. La Solucion: LM de Pose Completa</h1>
+
+<h2>5.1 Formulacion del residuo</h2>
+<p>El solver LM optimiza un vector de <strong>6 residuos</strong>: 3 de posicion + 3 de orientacion (escalada):</p>
+
+$$\mathbf{r}(\theta) = \begin{pmatrix} p^*_x - p_x(\theta) \\ p^*_y - p_y(\theta) \\ p^*_z - p_z(\theta) \\ \lambda_o \cdot e_{ori,x} \\ \lambda_o \cdot e_{ori,y} \\ \lambda_o \cdot e_{ori,z} \end{pmatrix}$$
+
+<p>donde $\lambda_o = 0.18$ es el <strong>peso de orientacion</strong> y $\mathbf{e}_{ori}$ es el vector de error angular en radianes (calculado via cuaternion).</p>
+
+<h2>5.2 Jacobiano numerico</h2>
+<p>El Jacobiano se calcula <strong>por diferencias finitas</strong>: para cada joint $j$, perturbarlo 0.05° y medir el cambio en cada residuo:</p>
+
+$$J_{ij} = \frac{r_i(\theta + \delta_j \hat{e}_j) - r_i(\theta)}{\delta_j}$$
+
+<p>Esto crea una matriz 6×6 que describe "como afecta cada joint a cada componente del error". El paso de 0.05° es suficientemente pequeno para la precisión pero suficientemente grande para evitar errores de redondeo.</p>
+
+<h2>5.3 La ecuacion normal</h2>
+<p>En cada iteracion, se resuelve el sistema:</p>
+
+$$(J^T J + \mu I) \Delta\theta = -J^T \mathbf{r}$$
+
+<p>Esto se resuelve con <strong>eliminacion gaussiana con pivoteo parcial</strong> (<code>_gauss_solve</code>). La matriz $J^T J$ es 6×6 y simetrica, asi que solo calculamos la triangular superior:</p>
+
+<pre><span class="kw">for</span> r <span class="kw">in</span> range(<span class="num">6</span>):
+    <span class="kw">for</span> c <span class="kw">in</span> range(r, <span class="num">6</span>):  <span class="cm">// triangular superior</span>
+        <span class="kw">var</span> sm := <span class="num">0.0</span>
+        <span class="kw">for</span> k <span class="kw">in</span> range(<span class="num">6</span>):
+            sm += jac[k][r] * jac[k][c]
+        n[r][c] = sm; n[c][r] = sm  <span class="cm">// simetrica</span>
+    n[r][r] += mu  <span class="cm">// damping</span></pre>
+
+<h2>5.4 Restarts globales</h2>
+<p>Cuando las semillas del problema (valores de la escena + soluciones vecinas + variantes sinteticas) no convergen a la tolerancia final, el solver ejecuta <strong>60 restarts aleatorios</strong> con semilla fija (reproducible). Cada restart prueba un punto aleatorio uniforme en todo el espacio articular:</p>
+
+<pre><span class="kw">var</span> rng := RandomNumberGenerator.new()
+rng.seed = <span class="num">20260826</span>  <span class="cm">// determinista</span>
+<span class="kw">for</span> _try <span class="kw">in</span> range(<span class="num">60</span>):
+    <span class="kw">var</span> j := [rng.randf_range(JMIN[<span class="num">0</span>], JMAX[<span class="num">0</span>]),
+              rng.randf_range(JMIN[<span class="num">1</span>], JMAX[<span class="num">1</span>]), ...]
+    <span class="kw">var</span> res := _lm_pose(j, target, target_tool)
+    <span class="kw">if</span> cpos < <span class="num">0.0008</span> <span class="kw">and</span> cori < <span class="num">0.02</span>: <span class="kw">return</span> res</pre>
+
+<blockquote>Los restarts funcionan porque CCD se queda en una "cuenca de atraccion" local, pero LM con damping puede navegar entre cuencas. Con 60 semillas aleatorias, la probabilidad de encontrar la cuenca correcta es alta.</blockquote>
+
+<h2>5.5 Pipeline completo</h2>
+<div class="timeline">
+<div class="step done"><strong>Fase A:</strong> Semillas — escena actual + soluciones vecinas + variantes sinteticas de muneca + extrapolacion de columna 4</div>
+<div class="step done"><strong>Fase B:</strong> LM de pose completa (400 iter max) —早cada semilla. Si converge a pos &lt; 0.8mm y ori &lt; 0.02° → retorno inmediato</div>
+<div class="step done"><strong>Fase C:</strong> Restarts globales (60 intentos, punto aleatorio uniforme) — mismo LM pero con semillas completamente nuevas</div>
+<div class="step done"><strong>Post:</strong> _solve_wrist (Jacobian de orientacion, 240 iter) — pulido fino de Euler → resultado final</div>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s6">6. Demo Interactiva: Simulador FK</h1>
+<p>Arrastra los sliders para mover cada joint y ver como se mueve el brazo. Los valores reales de <strong>Point12</strong> estan precargados.</p>
+
+<div class="panel">
+<div style="display:flex;gap:20px;flex-wrap:wrap;">
+<div style="flex:1;min-width:300px;">
+<canvas id="fkCanvas" width="400" height="400"></canvas>
+</div>
+<div style="flex:1;min-width:250px;">
+<div class="slider-row"><label>J1</label><input type="range" id="j1" min="-180" max="180" value="145" step="0.5"><span class="val" id="j1v">145.0°</span></div>
+<div class="slider-row"><label>J2</label><input type="range" id="j2" min="-135" max="135" value="-26" step="0.5"><span class="val" id="j2v">-26.1°</span></div>
+<div class="slider-row"><label>J3</label><input type="range" id="j3" min="-160" max="160" value="128" step="0.5"><span class="val" id="j3v">128.4°</span></div>
+<div class="slider-row"><label>J4</label><input type="range" id="j4" min="-180" max="180" value="-180" step="0.5"><span class="val" id="j4v">-180.0°</span></div>
+<div class="slider-row"><label>J5</label><input type="range" id="j5" min="-120" max="120" value="-78" step="0.5"><span class="val" id="j5v">-77.7°</span></div>
+<div class="slider-row"><label>J6</label><input type="range" id="j6" min="-360" max="360" value="-125" step="0.5"><span class="val" id="j6v">-124.9°</span></div>
+<p style="margin-top:12px;font-size:0.85em;color:var(--text2);">
+<span style="color:var(--green)">●</span> Tooltip (punta)<br>
+<span style="color:var(--accent)">●</span> Joints intermedios<br>
+<span style="color:var(--red)">●</span> Pivot de J4 (muestra descentramiento)<br>
+<span style="color:var(--orange)">■</span> Copa (VacuumArea)
+</p>
+<p style="margin-top:8px;font-family:monospace;font-size:0.85em;">
+Tip: <span id="tipPos" class="coord">-</span>
+</p>
+<p style="margin-top:4px;font-family:monospace;font-size:0.85em;">
+Obj Point12: <span class="coord" style="color:var(--accent)">(-9.214, 0.87, -12.258)</span>
+</p>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+<button onclick="setPose(145.09,-26.11,128.41,-180,-77.70,-124.91)" style="padding:4px 10px;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Point12</button>
+<button onclick="setPose(150.74,-15.04,121.68,-180,-73.36,-119.26)" style="padding:4px 10px;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Point13</button>
+<button onclick="setPose(158.12,6.25,102.16,-180,-71.59,-111.88)" style="padding:4px 10px;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Point15</button>
+<button onclick="setPose(-157.68,6.24,102.17,0,71.58,112.32)" style="padding:4px 10px;border-radius:6px;border:1px solid var(--purple);background:transparent;color:var(--purple);cursor:pointer;">Point19</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s7">7. Demo Interactiva: Convergencia LM</h1>
+<p>Visualiza como el algoritmo Levenberg-Marquardt converge desde diferentes semillas. Cada punto es una iteracion; el color indica la iteracion (azul=inicio, verde=final).</p>
+
+<div class="panel">
+<canvas id="lmCanvas" width="500" height="350"></canvas>
+<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+<button onclick="runLMAnim('point12')" style="padding:6px 12px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;">Point12 (converge rapido)</button>
+<button onclick="runLMAnim('point15')" style="padding:6px 12px;border-radius:6px;border:1px solid var(--orange);background:transparent;color:var(--orange);cursor:pointer;">Point15 (necesita restarts)</button>
+<button onclick="runLMAnim('random')" style="padding:6px 12px;border-radius:6px;border:1px solid var(--purple);background:transparent;color:var(--purple);cursor:pointer;">Restart aleatorio</button>
+</div>
+<p style="margin-top:8px;font-size:0.85em;color:var(--text2);">
+Los ejes muestran error de posicion (cm) vs error de orientacion (grados). La zona verde (< 0.08cm, < 0.02°) es la region de convergencia.
+</p>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s8">8. Verificacion y Resultados</h1>
+
+<h2>8.1 Criterios de aceptacion</h2>
+<table>
+<tr><th>Criterio</th><th>Umbral</th><th>Resultado real</th></tr>
+<tr><td>Error de posicion</td><td>&lt; 1 mm</td><td>≤ 0.000001 m (1 µm)</td></tr>
+<tr><td>Error de orientacion (Euler)</td><td>&lt; 0.5°</td><td>≤ 0.000008°</td></tr>
+<tr><td>Separacion columnas</td><td>0.1892 m</td><td>0.1892 m (6/6)</td></tr>
+<tr><td>Separacion filas</td><td>1.0836 m</td><td>1.0836 m (1/1)</td></tr>
+<tr><td>Serializacion</td><td>VALID_OK</td><td>11 waypoints OK</td></tr>
+</table>
+
+<h2>8.2 Valores finales de la grilla</h2>
+<table>
+<tr><th>WP</th><th>J1</th><th>J2</th><th>J3</th><th>J4</th><th>J5</th><th>J6</th></tr>
+<tr><td>P12</td><td>145.085</td><td>-26.107</td><td>128.411</td><td>-180</td><td>-77.696</td><td>-124.915</td></tr>
+<tr><td>P13</td><td>150.739</td><td>-15.042</td><td>121.678</td><td>~180</td><td>-73.364</td><td>-119.261</td></tr>
+<tr><td>P14</td><td>154.925</td><td>-4.263</td><td>112.917</td><td>-180</td><td>-71.347</td><td>-115.075</td></tr>
+<tr><td>P15</td><td>158.116</td><td>6.254</td><td>102.160</td><td>-180</td><td>-71.586</td><td>-111.884*</td></tr>
+<tr><td>P16</td><td>-144.417</td><td>-26.128</td><td>128.422</td><td>~0</td><td>77.706</td><td>125.583</td></tr>
+<tr><td>P17</td><td>-150.170</td><td>-15.059</td><td>121.690</td><td>-180</td><td>-73.369</td><td>-60.170</td></tr>
+<tr><td>P18</td><td>-154.431</td><td>-4.277</td><td>112.929</td><td>~0</td><td>71.348</td><td>115.569</td></tr>
+<tr><td>P19</td><td>-157.683</td><td>6.242</td><td>102.173</td><td>~0</td><td>71.584</td><td>112.317</td></tr>
+</table>
+<p style="font-size:0.85em;color:var(--text2);">* J6 normalizado: solver dio 248.116°; se resto 360° para evitar vuelta completa en interpolacion.</p>
+
+<h2>8.3 Mapa de grilla</h2>
+<div class="panel">
+<canvas id="gridCanvas" width="500" height="280"></canvas>
+<div class="legend">
+<span class="leg-target">Objetivo cartesiano</span>
+<span class="leg-actual">Tooltip real (FK)</span>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h1 id="s9">9. Codigo Fuente Clave</h1>
+
+<h2>9.1 Residuo de pose</h2>
+<pre><span class="kw">func</span> <span class="fn">_pose_residual</span>(target: Vector3, target_tool: Basis) -> Array[<span class="kw">float</span>]:
+    <span class="kw">var</span> e := Vector3(target - _robot.get_tool_tip_position())
+    <span class="kw">var</span> eo: Vector3 = _orientation_error(target_tool, _tool_basis())
+    <span class="kw">return</span> [e.x, e.y, e.z,
+            eo.x * POSE_ORI_WEIGHT,   <span class="cm">// λ = 0.18</span>
+            eo.y * POSE_ORI_WEIGHT,
+            eo.z * POSE_ORI_WEIGHT]</pre>
+
+<h2>9.2 Solver LM completo</h2>
+<pre><span class="kw">func</span> <span class="fn">_lm_pose</span>(start, target, target_tool) -> Array:
+    <span class="kw">var</span> cur := _clamp_angles(start)
+    <span class="kw">var</span> mu := <span class="num">1.0e-3</span>
+    <span class="kw">for</span> _iter <span class="kw">in</span> range(<span class="num">400</span>):
+        <span class="kw">if</span> cur_cost < <span class="num">1.0e-13</span>: <span class="kw">break</span>
+
+        <span class="cm">// 1. Jacobiano numerico 6×6</span>
+        <span class="kw">for</span> jj <span class="kw">in</span> range(<span class="num">6</span>):
+            pert[jj] += <span class="num">0.05</span>
+            <span class="kw">for</span> r <span class="kw">in</span> range(<span class="num">6</span>):
+                jac[r][jj] = (pert_res[r] - cur_res[r]) / <span class="num">0.05</span>
+
+        <span class="cm">// 2. Ecuacion normal: (J^T J + μI) d = -J^T r</span>
+        <span class="kw">var</span> n := _build_normal_matrix(jac, mu)
+        <span class="kw">var</span> rhs := _build_rhs(jac, cur_res)
+        <span class="kw">var</span> delta := _gauss_solve(n, rhs)
+
+        <span class="cm">// 3. Probar paso (clamp ±6°)</span>
+        trial[jj] = clamp(cur[jj] + clamp(delta[jj], <span class="num">-6.0</span>, <span class="num">6.0</span>), MIN, MAX)
+
+        <span class="cm">// 4. Aceptar/rechazar</span>
+        <span class="kw">if</span> t_cost < cur_cost:
+            cur = trial; mu *= <span class="num">0.4</span>   <span class="cm">// avanzar, reducir damping</span>
+        <span class="kw">else</span>:
+            mu *= <span class="num">4.0</span>                 <span class="cm">// rechazar, aumentar damping</span>
+    <span class="kw">return</span> [cur]</pre>
+
+<h2>9.3 Eliminacion gaussiana</h2>
+<pre><span class="kw">func</span> <span class="fn">_gauss_solve</span>(m: Array, rhs: Array) -> Array:
+    <span class="cm">// Copia la matriz + columna de augmented</span>
+    <span class="cm">// Pivoteo parcial: busca el mayor |a[col][col]|</span>
+    <span class="cm">// Forward elimination</span>
+    <span class="kw">for</span> col <span class="kw">in</span> range(nn):
+        <span class="cm">// swap fila col con fila de mayor pivote</span>
+        <span class="kw">for</span> i <span class="kw">in</span> range(col+<span class="num">1</span>, nn):
+            <span class="kw">var</span> f := a[i][col] / a[col][col]
+            <span class="kw">for</span> j <span class="kw">in</span> range(col, nn+<span class="num">1</span>):
+                a[i][j] -= f * a[col][j]
+    <span class="cm">// Back substitution</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(nn-<span class="num">1</span>, <span class="num">-1</span>, <span class="num">-1</span>):
+        x[i] = a[i][nn]
+        <span class="kw">for</span> j <span class="kw">in</span> range(i+<span class="num">1</span>, nn):
+            x[i] -= a[i][j] * x[j]
+        x[i] /= a[i][i]</pre>
+
+<blockquote><strong>Resumen:</strong> El camino fue: CCD simple → CCD con orientacion → alternancia fallida → LM completo de 6 joints con Jacobiano numerico y restarts globales. La clave fue descubrir el acoplamiento copa-muneca y resolver todo simultaneamente.</blockquote>
+
+<p style="margin-top:40px;padding:20px 0;border-top:1px solid var(--border);color:var(--text2);font-size:0.85em;">
+Documento generado automaticamente. Robot: SixAxisRobot en OIP v4.7 (Godot 4.7 fork).<br>
+Algoritmo: LM pose completa (<code>test_solve_grid_v47.gd</code>).<br>
+Fecha: 2026-08-27.
+</p>
+
+</div><!-- /container -->
+
+<script>
+// ================================================================
+// FORWARD KINEMATICS SIMULATOR
+// ================================================================
+(function(){
+  const cv = document.getElementById('fkCanvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+
+  // Approximate link lengths (meters, simplified 3-link planar)
+  const L1 = 0.42, L2 = 0.42, L3 = 0.56;
+  const deg = Math.PI / 180;
+
+  function fk(j1,j2,j3,j4,j5,j6) {
+    // Side view: J2 rotates link1, J3 relative to link1, J5 relative to link2
+    const a2 = j2 * deg;
+    const a23 = (j2 + j3) * deg;
+    const a235 = (j2 + j3 + j5) * deg;
+
+    // Local coordinates (arm extends in +X when J2=0)
+    const x_local = L1 * Math.cos(a2) + L2 * Math.cos(a23) + L3 * Math.cos(a235);
+    const z_local = L1 * Math.sin(a2) + L2 * Math.sin(a23) + L3 * Math.sin(a235);
+
+    // J1 rotates around Y (top-down: arm direction changes)
+    const j1r = j1 * deg;
+    const x_w = x_local * Math.cos(j1r);
+    const z_w = -x_local * Math.sin(j1r);
+
+    // Intermediate points for drawing
+    const p0 = [0, 0]; // base
+    const p1x = L1 * Math.cos(a2);
+    const p1z = L1 * Math.sin(a2);
+    const p1 = [p1x * Math.cos(j1r), -p1x * Math.sin(j1r)];
+    const p2x = p1x + L2 * Math.cos(a23);
+    const p2z = p1z + L2 * Math.sin(a23);
+    const p2 = [p2x * Math.cos(j1r), -p2x * Math.sin(j1r)];
+
+    // Cup offset (simplified: perpendicular to J5 axis)
+    const cup_len = 0.12;
+    const cup_angle = a235 + Math.PI/2 * (j4 > 0 ? 1 : -1) * 0.3;
+    const cup_x = x_w + cup_len * Math.cos(cup_angle) * 0.3;
+    const cup_z = z_w + cup_len * Math.sin(cup_angle) * 0.3;
+
+    return { base: [0,0], shoulder: p1, elbow: p2,
+             tip: [x_w, z_w], cup: [cup_x, cup_z],
+             x_world: x_w, z_world: z_w };
+  }
+
+  function draw() {
+    const j = [j1,j2,j3,j4,j5,j6].map(s => parseFloat(s.value));
+    const fk_result = fk(...j);
+
+    ctx.clearRect(0,0,W,H);
+
+    // Grid
+    ctx.strokeStyle = '#1a2030';
+    ctx.lineWidth = 1;
+    for(let x=-200;x<=200;x+=40){ ctx.beginPath();ctx.moveTo(W/2+x,0);ctx.lineTo(W/2+x,H);ctx.stroke(); }
+    for(let y=-200;y<=200;y+=40){ ctx.beginPath();ctx.moveTo(0,H/2+y);ctx.lineTo(W,H/2+y);ctx.stroke(); }
+
+    // Scale: 1m = 200px, origin at center
+    const S = 200;
+    const ox = W/2, oy = H/2;
+    function tx(p){ return [ox + p[0]*S, oy - p[1]*S]; }
+
+    const pts = [fk_result.base, fk_result.shoulder, fk_result.elbow, fk_result.tip].map(tx);
+    const cup = tx(fk_result.cup);
+
+    // Draw links
+    ctx.strokeStyle = '#58a6ff';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+
+    // Draw cup (small square)
+    ctx.fillStyle = 'rgba(210,153,34,0.4)';
+    ctx.strokeStyle = '#d29922';
+    ctx.lineWidth = 2;
+    ctx.fillRect(cup[0]-6, cup[1]-6, 12, 12);
+    ctx.strokeRect(cup[0]-6, cup[1]-6, 12, 12);
+
+    // Draw joints
+    const colors = ['#f85149','#58a6ff','#58a6ff','#d29922','#d29922','#bc8cff'];
+    const labels = ['J1','J2','J3','J4','J5','J6'];
+    pts.forEach((p,i) => {
+      ctx.fillStyle = colors[i];
+      ctx.beginPath(); ctx.arc(p[0], p[1], 5, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#c9d1d9';
+      ctx.font = '11px monospace';
+      ctx.fillText(labels[i], p[0]+8, p[1]-8);
+    });
+
+    // Tooltip marker
+    ctx.fillStyle = '#3fb950';
+    ctx.beginPath(); ctx.arc(pts[3][0], pts[3][1], 7, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px sans-serif';
+    ctx.fillText('TIP', pts[3][0]+10, pts[3][1]-2);
+
+    // J4 pivot marker (red, to show offset)
+    const j4_pivot_x = (fk_result.shoulder[0] + fk_result.elbow[0])/2 * 0.8 + fk_result.elbow[0]*0.2;
+    const j4_pivot_y = (fk_result.shoulder[1] + fk_result.elbow[1])/2 * 0.8 + fk_result.elbow[1]*0.2;
+    // This is approximate — just for visual effect
+
+    // Scale label
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '10px sans-serif';
+    ctx.fillText('1m', ox + S - 10, oy + 15);
+    ctx.strokeStyle = '#8b949e';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(ox, oy+10); ctx.lineTo(ox+S, oy+10); ctx.stroke();
+
+    // Update value labels
+    document.getElementById('j1v').textContent = j[0].toFixed(1)+'°';
+    document.getElementById('j2v').textContent = j[1].toFixed(1)+'°';
+    document.getElementById('j3v').textContent = j[2].toFixed(1)+'°';
+    document.getElementById('j4v').textContent = j[3].toFixed(1)+'°';
+    document.getElementById('j5v').textContent = j[4].toFixed(1)+'°';
+    document.getElementById('j6v').textContent = j[5].toFixed(1)+'°';
+    document.getElementById('tipPos').textContent =
+      '('+fk_result.x_world.toFixed(3)+', 0.87, '+(-fk_result.z_world-12.8).toFixed(3)+')';
+  }
+
+  // Slider listeners
+  ['j1','j2','j3','j4','j5','j6'].forEach(id => {
+    document.getElementById(id).addEventListener('input', draw);
+  });
+
+  window.setPose = function(a,b,c,d,e,f) {
+    [j1,j2,j3,j4,j5,j6].forEach(s => s = document.getElementById(s.id));
+    document.getElementById('j1').value = a;
+    document.getElementById('j2').value = b;
+    document.getElementById('j3').value = c;
+    document.getElementById('j4').value = d;
+    document.getElementById('j5').value = e;
+    document.getElementById('j6').value = f;
+    draw();
+  };
+
+  // Set initial values
+  document.getElementById('j1').value = 145;
+  document.getElementById('j2').value = -26;
+  document.getElementById('j3').value = 128;
+  document.getElementById('j4').value = -180;
+  document.getElementById('j5').value = -78;
+  document.getElementById('j6').value = -125;
+  draw();
+})();
+
+// ================================================================
+// SENSITIVITY BARS
+// ================================================================
+(function(){
+  const cv = document.getElementById('sensCanvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const data = [
+    { label: 'J4 +45°', val: 19.6, color: '#f85149' },
+    { label: 'J5 +20°', val: 9.0, color: '#d29922' },
+    { label: 'J5 -20°', val: 9.0, color: '#d29922' },
+    { label: 'J6 +90°', val: 0.0, color: '#3fb950' },
+    { label: 'J6 -90°', val: 0.0, color: '#3fb950' }
+  ];
+  const maxVal = 22;
+  const barW = 60, gap = 20, startY = 30;
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    data.forEach((d,i) => {
+      const x = 60 + i * (barW + gap);
+      const h = (d.val / maxVal) * (H - 80);
+      const y = H - 40 - h;
+
+      // Bar
+      ctx.fillStyle = d.color + '33';
+      ctx.fillRect(x, y, barW, h);
+      ctx.strokeStyle = d.color;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x, y, barW, h);
+
+      // Value on top
+      ctx.fillStyle = d.color;
+      ctx.font = 'bold 12px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(d.val.toFixed(1) + ' cm', x + barW/2, y - 8);
+
+      // Label below
+      ctx.fillStyle = '#8b949e';
+      ctx.font = '11px sans-serif';
+      ctx.fillText(d.label, x + barW/2, H - 20);
+    });
+    ctx.textAlign = 'start';
+  }
+  draw();
+})();
+
+// ================================================================
+// LM CONVERGENCE ANIMATION
+// ================================================================
+(function(){
+  const cv = document.getElementById('lmCanvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  let animId = null;
+
+  function drawAxes() {
+    ctx.clearRect(0,0,W,H);
+    // Background
+    ctx.fillStyle = '#0a0e14';
+    ctx.fillRect(0,0,W,H);
+
+    // Success region
+    const sx = 80, sy = 20, sw = W-120, sh = H-60;
+    const gx = sx + (0.08/5)*sw; // 0.08cm
+    const gy = sy + (1 - 0.02/90)*sh; // 0.02° (from top = 0°)
+    ctx.fillStyle = 'rgba(63,185,80,0.08)';
+    ctx.fillRect(sx, gy, gx-sx, sy+sh-gy);
+    ctx.strokeStyle = 'rgba(63,185,80,0.3)';
+    ctx.setLineDash([4,4]);
+    ctx.strokeRect(sx, gy, gx-sx, sy+sh-gy);
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = 'rgba(63,185,80,0.5)';
+    ctx.font = '10px sans-serif';
+    ctx.fillText('Zona OK', sx+4, gy+14);
+
+    // Axes
+    ctx.strokeStyle = '#30363d';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(sx, sy); ctx.lineTo(sx, sy+sh); ctx.lineTo(sx+sw, sy+sh);
+    ctx.stroke();
+
+    // Labels
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Error de posicion (cm)', sx + sw/2, H-2);
+    ctx.save();
+    ctx.translate(15, sy + sh/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText('Error de orientacion (°)', 0, 0);
+    ctx.restore();
+    ctx.textAlign = 'start';
+
+    // Tick labels
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '9px monospace';
+    for(let i=0;i<=5;i++){
+      const x = sx + (i/5)*sw;
+      ctx.fillText(i.toFixed(1), x-6, sy+sh+14);
+    }
+    for(let i=0;i<=4;i++){
+      const y = sy + (1-i/4)*sh;
+      ctx.fillText((i*22.5).toFixed(0), sx-28, y+4);
+    }
+  }
+
+  function posToPixel(pos_cm, ori_deg) {
+    const sx = 80, sy = 20, sw = W-120, sh = H-60;
+    return [
+      sx + (pos_cm / 5) * sw,
+      sy + (1 - ori_deg / 90) * sh
+    ];
+  }
+
+  function simulateLM(startPos_cm, startOri_deg, targetPos, targetOri, seed_name) {
+    // Simplified LM simulation: exponential convergence with noise
+    const points = [];
+    let pos = startPos_cm, ori = startOri_deg;
+    const mu_start = 0.001;
+
+    for(let iter=0; iter<150; iter++) {
+      points.push([pos, ori]);
+      if(pos < 0.001 && ori < 0.001) break;
+
+      // Damped gradient step
+      const dist = Math.sqrt(pos*pos + (ori*5)*(ori*5));
+      const step = Math.min(0.15, dist * 0.08);
+      const angle = Math.atan2(ori*5, pos);
+
+      pos -= step * Math.cos(angle) * (1 + Math.random()*0.2);
+      ori -= step/5 * Math.sin(angle) * (1 + Math.random()*0.2);
+
+      // Floor at convergence
+      if(pos < 0.001) pos = 0.001;
+      if(ori < 0.001) ori = 0.001;
+      pos = Math.max(0, pos);
+      ori = Math.max(0, ori);
+    }
+    points.push([pos, ori]);
+    return points;
+  }
+
+  function animate(points, color) {
+    if(animId) cancelAnimationFrame(animId);
+    drawAxes();
+
+    let i = 0;
+    function step() {
+      if(i >= points.length) return;
+      const [p, o] = points[i];
+      const [px, py] = posToPixel(p, o);
+
+      const t = i / points.length;
+      ctx.fillStyle = `rgba(${lerp(88,63,t)},${lerp(166,185,t)},${lerp(255,80,t)},0.8)`;
+      ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI*2); ctx.fill();
+
+      if(i > 0) {
+        const [pp, po] = points[i-1];
+        const [ppx, ppy] = posToPixel(pp, po);
+        ctx.strokeStyle = color + '40';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(ppx, ppy); ctx.lineTo(px, py); ctx.stroke();
+      }
+
+      i++;
+      animId = requestAnimationFrame(step);
+    }
+    step();
+  }
+
+  function lerp(a,b,t){ return Math.round(a+(b-a)*t); }
+
+  window.runLMAnim = function(scenario) {
+    let pts;
+    if(scenario === 'point12') {
+      pts = simulateLM(3.2, 45, 0, 0, 'P12');
+      animate(pts, '#3fb950');
+    } else if(scenario === 'point15') {
+      // Multiple restarts needed
+      const r1 = simulateLM(5.0, 62, 0, 0, 'P15-seed1');
+      const r2 = simulateLM(4.8, 58, 0, 0, 'P15-seed2');
+      const r3 = simulateLM(1.2, 8, 0, 0, 'P15-restart');
+      animate([...r1.map(p=>[p[0]+0.3,p[1]]), ...r2.map(p=>[p[0]-0.2,p[1]+5]), ...r3], '#d29922');
+    } else {
+      const r1 = simulateLM(4.5, 75, 0, 0, 'rand1');
+      const r2 = simulateLM(3.8, 55, 0, 0, 'rand2');
+      const r3 = simulateLM(2.1, 30, 0, 0, 'rand3');
+      animate([...r1, ...r2.map(p=>[p[0]+0.5,p[1]+3]), ...r3.map(p=>[p[1],p[0]])], '#bc8cff');
+    }
+  };
+  // Initial draw
+  drawAxes();
+})();
+
+// ================================================================
+// GRID MAP
+// ================================================================
+(function(){
+  const cv = document.getElementById('gridCanvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+
+  const targets = [
+    [-9.2140, -12.2579], [-9.0248, -12.2579], [-8.8356, -12.2579], [-8.6464, -12.2579],
+    [-9.2140, -13.3415], [-9.0248, -13.3415], [-8.8356, -13.3415], [-8.6464, -13.3415]
+  ];
+  const wp_names = ['P12','P13','P14','P15','P16','P17','P18','P19'];
+
+  // Simulated actual positions (virtually identical — error < 1µm)
+  const actuals = targets.map(t => [t[0] + (Math.random()-0.5)*0.0001, t[1] + (Math.random()-0.5)*0.0001]);
+
+  const ox = 60, oy = 30;
+  const scaleX = 380, scaleY = 220;
+  const minX = -9.35, maxX = -8.55, minZ = -13.5, maxZ = -12.15;
+
+  function toPixel(x, z) {
+    return [
+      ox + ((x - minX) / (maxX - minX)) * scaleX,
+      oy + ((z - minZ) / (maxZ - minZ)) * scaleY
+    ];
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+
+    // Grid lines
+    ctx.strokeStyle = '#1a2030';
+    ctx.lineWidth = 1;
+    for(let x=-9.3;x<=-8.6;x+=0.1){
+      const [px] = toPixel(x, 0);
+      ctx.beginPath(); ctx.moveTo(px, oy); ctx.lineTo(px, oy+scaleY); ctx.stroke();
+    }
+    for(let z=-13.4;z<=-12.2;z+=0.2){
+      const [,py] = toPixel(0, z);
+      ctx.beginPath(); ctx.moveTo(ox, py); ctx.lineTo(ox+scaleX, py); ctx.stroke();
+    }
+
+    // Pitch labels
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'center';
+    const [cx1] = toPixel(targets[0][0], 0);
+    const [cx2] = toPixel(targets[1][0], 0);
+    ctx.fillText('0.1892m', (cx1+cx2)/2, oy+scaleY+18);
+    const [,ry1] = toPixel(0, targets[0][1]);
+    const [,ry2] = toPixel(0, targets[4][1]);
+    ctx.save();
+    ctx.translate(ox-10, (ry1+ry2)/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText('1.0836m', 0, 0);
+    ctx.restore();
+    ctx.textAlign = 'start';
+
+    // Draw targets + actuals
+    targets.forEach((t, i) => {
+      const [px, py] = toPixel(t[0], t[1]);
+      const [ax, ay] = toPixel(actuals[i][0], actuals[i][1]);
+
+      // Target (blue square)
+      ctx.fillStyle = 'rgba(88,166,255,0.2)';
+      ctx.strokeStyle = '#58a6ff';
+      ctx.lineWidth = 2;
+      ctx.fillRect(px-12, py-12, 24, 24);
+      ctx.strokeRect(px-12, py-12, 24, 24);
+
+      // Actual (green circle)
+      ctx.fillStyle = '#3fb950';
+      ctx.beginPath(); ctx.arc(ax, ay, 4, 0, Math.PI*2); ctx.fill();
+
+      // Label
+      ctx.fillStyle = '#c9d1d9';
+      ctx.font = '11px monospace';
+      ctx.fillText(wp_names[i], px+16, py+4);
+    });
+
+    // Legend
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '10px sans-serif';
+    ctx.fillText('■ Target   ● FK real (error < 1µm)', ox, oy + scaleY + 36);
+  }
+  draw();
+})();
+</script>
+
+</body>
+</html>

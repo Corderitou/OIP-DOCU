@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cusis6cptvd4s"]
+
+[ext_resource type="Script" uid="uid://dow8ci8dx5qbr" path="res://src/Maquina1/maquina1.gd" id="1_maquina1"]
+[ext_resource type="PackedScene" uid="uid://bkcsal3lmb8yj" path="res://parts/Dispenser.tscn" id="2_dispenser"]
+[ext_resource type="PackedScene" uid="uid://b2m3rpracg1r3" path="res://parts/Stringer.tscn" id="3_stringer"]
+
+[node name="Maquina1" type="Node3D" unique_id=601466269]
+script = ExtResource("1_maquina1")
+z_position = 0.146
+tag_group_name = "PLCSIM"
+
+[node name="Dispenser" parent="." unique_id=1391283222 instance=ExtResource("2_dispenser")]
+unique_name_in_owner = true
+transform = Transform3D(0.9999147, -0.011819173, 0.0055504064, 0.011816189, 0.99993, 0.00056989706, -0.0055567552, -0.00050425174, 0.99998444, 0, 0, 0)
+tira_spacing = 0.06
+
+[node name="Stringer" parent="." unique_id=994221881 instance=ExtResource("3_stringer")]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.7947191, 0, 0)
+z_position = 0.146

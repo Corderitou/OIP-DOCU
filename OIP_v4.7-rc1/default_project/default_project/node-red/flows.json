@@ -1,0 +1,437 @@
+[
+    {
+        "id":  "9752e5c455c4e742",
+        "type":  "tab",
+        "label":  "Flujo 1",
+        "disabled":  false,
+        "info":  "",
+        "env":  [
+
+                ]
+    },
+    {
+        "id":  "b87bcb0651177a2c",
+        "type":  "OpcUa-Endpoint",
+        "name":  "OPCLOCAL",
+        "endpoint":  "opc.tcp://EVENTOSMARINA02:4840/UA/OIP-WebPLC",
+        "secpol":  "None",
+        "secmode":  "None",
+        "none":  false,
+        "login":  false,
+        "usercert":  false,
+        "usercertificate":  "",
+        "userprivatekey":  ""
+    },
+    {
+        "id":  "2655734c275f305c",
+        "type":  "opcua-client-config",
+        "name":  "opc1",
+        "endpoint":  "opc.tcp://EVENTOSMARINA02:4840/UA/OIP-WebPLC",
+        "securityPolicy":  "None",
+        "securityMode":  "None",
+        "authType":  "anonymous"
+    },
+    {
+        "id":  "1d09a28fb4f253d2",
+        "type":  "opc-ua-server",
+        "z":  "9752e5c455c4e742",
+        "name":  "",
+        "resourcePath":  "/",
+        "serverName":  "Node-RED OPC UA Server",
+        "allowAnonymous":  true,
+        "port":  4840,
+        "maxConnections":  10,
+        "securityPolicy":  "None",
+        "securityMode":  "None",
+        "namespaceUri":  "Node-RED OPC UA Server",
+        "tree":  "{\"folders\":[{\"name\":\"Simulador\",\"displayName\":\"\",\"description\":\"\",\"nodeId\":\"\",\"namespaceId\":2,\"objectsType\":\"\",\"folders\":[],\"objects\":[],\"variables\":[{\"name\":\"BeltConveyor_Speed\",\"type\":\"Float\",\"value\":2,\"access\":\"readwrite\",\"description\":\"BeltConveyor.speed_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor_Speed\",\"namespaceId\":2},{\"name\":\"BeltConveyor_Running\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"BeltConveyor.running_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor_Running\",\"namespaceId\":2},{\"name\":\"BeltConveyor2_Speed\",\"type\":\"Float\",\"value\":2,\"access\":\"readwrite\",\"description\":\"BeltConveyor2.speed_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor2_Speed\",\"namespaceId\":2},{\"name\":\"BeltConveyor2_Running\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"BeltConveyor2.running_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor2_Running\",\"namespaceId\":2},{\"name\":\"BeltConveyor3_Speed\",\"type\":\"Float\",\"value\":2,\"access\":\"readwrite\",\"description\":\"BeltConveyor3.speed_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor3_Speed\",\"namespaceId\":2},{\"name\":\"BeltConveyor3_Running\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"BeltConveyor3.running_tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=BeltConveyor3_Running\",\"namespaceId\":2},{\"name\":\"Vastago_Extend\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"VastagoNeumatico.tag_name (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Vastago_Extend\",\"namespaceId\":2},{\"name\":\"S1_CMD\",\"type\":\"Int32\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.cmd_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_CMD\",\"namespaceId\":2},{\"name\":\"S1_EXEC\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.exec_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_EXEC\",\"namespaceId\":2},{\"name\":\"S1_DONE\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.done_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_DONE\",\"namespaceId\":2},{\"name\":\"S1_RUNNING\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.running_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_RUNNING\",\"namespaceId\":2},{\"name\":\"S1_READY\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.ready_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_READY\",\"namespaceId\":2},{\"name\":\"S1_COUNT\",\"type\":\"Int32\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.count_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_COUNT\",\"namespaceId\":2},{\"name\":\"S1_AUTO_ENABLE\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.auto_enable_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_AUTO_ENABLE\",\"namespaceId\":2},{\"name\":\"S1_RATE\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"CeldaSpawner.rate_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S1_RATE\",\"namespaceId\":2},{\"name\":\"Maquina1_Cut\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Maquina1.cut_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Maquina1_Cut\",\"namespaceId\":2},{\"name\":\"Maquina1_Release\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Maquina1.release_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Maquina1_Release\",\"namespaceId\":2},{\"name\":\"Maquina1_Z\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Maquina1.z_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Maquina1_Z\",\"namespaceId\":2},{\"name\":\"Maquina1_Y\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Maquina1.y_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Maquina1_Y\",\"namespaceId\":2},{\"name\":\"Maquina1_Speed\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Maquina1.speed_tag (simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Maquina1_Speed\",\"namespaceId\":2},{\"name\":\"Sensor1\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Sensor1 (DiffuseSensor, simulador OIP)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Sensor1\",\"namespaceId\":2},{\"name\":\"SensorCeldas\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"SensorCeldas (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=SensorCeldas\",\"namespaceId\":2},{\"name\":\"SensorPlacers\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"SensorPlacers (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=SensorPlacers\",\"namespaceId\":2},{\"name\":\"6axisSensor1\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"6axisSensor1 (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=6axisSensor1\",\"namespaceId\":2},{\"name\":\"S2_CMD\",\"type\":\"Int32\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_CMD (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_CMD\",\"namespaceId\":2},{\"name\":\"S2_EXEC\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_EXEC (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_EXEC\",\"namespaceId\":2},{\"name\":\"S2_DONE\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_DONE (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_DONE\",\"namespaceId\":2},{\"name\":\"S2_RUNNING\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_RUNNING (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_RUNNING\",\"namespaceId\":2},{\"name\":\"S2_READY\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_READY (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_READY\",\"namespaceId\":2},{\"name\":\"S2_COUNT\",\"type\":\"Int32\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_COUNT (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_COUNT\",\"namespaceId\":2},{\"name\":\"S2_AUTO_ENABLE\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_AUTO_ENABLE (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_AUTO_ENABLE\",\"namespaceId\":2},{\"name\":\"S2_RATE\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"S2_RATE (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=S2_RATE\",\"namespaceId\":2},{\"name\":\"Gantry1_Command\",\"type\":\"Int16\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry1_Command (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry1_Command\",\"namespaceId\":2},{\"name\":\"Gantry1_Execute\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry1_Execute (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry1_Execute\",\"namespaceId\":2},{\"name\":\"Gantry1_Done\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry1_Done (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry1_Done\",\"namespaceId\":2},{\"name\":\"Gantry1_Vacuum\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry1_Vacuum (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry1_Vacuum\",\"namespaceId\":2},{\"name\":\"Gantry2_Command\",\"type\":\"Int16\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry2_Command (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry2_Command\",\"namespaceId\":2},{\"name\":\"Gantry2_Execute\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry2_Execute (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry2_Execute\",\"namespaceId\":2},{\"name\":\"Gantry2_Done\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry2_Done (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry2_Done\",\"namespaceId\":2},{\"name\":\"Gantry2_Vacuum\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Gantry2_Vacuum (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Gantry2_Vacuum\",\"namespaceId\":2},{\"name\":\"Robot1_Command\",\"type\":\"Int16\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Robot1_Command (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Robot1_Command\",\"namespaceId\":2},{\"name\":\"Robot1_Execute\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Robot1_Execute (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Robot1_Execute\",\"namespaceId\":2},{\"name\":\"Robot1_Done\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Robot1_Done (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Robot1_Done\",\"namespaceId\":2},{\"name\":\"Robot1_Vacuum\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"Robot1_Vacuum (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=Robot1_Vacuum\",\"namespaceId\":2},{\"name\":\"IndexingBelt3_Step\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"IndexingBelt3_Step (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=IndexingBelt3_Step\",\"namespaceId\":2},{\"name\":\"IndexingBelt3_Running\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"IndexingBelt3_Running (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=IndexingBelt3_Running\",\"namespaceId\":2},{\"name\":\"H1_CMD\",\"type\":\"Int32\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_CMD (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_CMD\",\"namespaceId\":2},{\"name\":\"H1_EXEC\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_EXEC (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_EXEC\",\"namespaceId\":2},{\"name\":\"H1_DONE\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_DONE (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_DONE\",\"namespaceId\":2},{\"name\":\"H1_RUNNING\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_RUNNING (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_RUNNING\",\"namespaceId\":2},{\"name\":\"H1_READY\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_READY (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_READY\",\"namespaceId\":2},{\"name\":\"H1_FAULT\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_FAULT (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_FAULT\",\"namespaceId\":2},{\"name\":\"H1_IN_POS\",\"type\":\"Boolean\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_IN_POS (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_IN_POS\",\"namespaceId\":2},{\"name\":\"H1_SETPOINT\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_SETPOINT (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_SETPOINT\",\"namespaceId\":2},{\"name\":\"H1_MV\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_MV (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_MV\",\"namespaceId\":2},{\"name\":\"H1_PV\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_PV (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_PV\",\"namespaceId\":2},{\"name\":\"H1_CYCLE_TIME\",\"type\":\"Float\",\"value\":0,\"access\":\"readwrite\",\"description\":\"H1_CYCLE_TIME (OIP, generado por apply_control_flow.js)\",\"displayName\":\"\",\"nodeId\":\"ns=2;s=H1_CYCLE_TIME\",\"namespaceId\":2}]}]}",
+        "x":  980,
+        "y":  40,
+        "wires":  [
+
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "Leer tags simulador",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "3",
+        "crontab":  "",
+        "once":  true,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "",
+        "payloadType":  "date",
+        "x":  500,
+        "y":  400,
+        "wires":  [
+                      [
+                          "oip-sim-func"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-func",
+        "type":  "function",
+        "z":  "9752e5c455c4e742",
+        "name":  "Tags del simulador OIP",
+        "func":  "msg.payload = [\n  { \"name\": \"BeltConveyor_Speed\", \"path\": \"ns=2;s=BeltConveyor_Speed\" },\n  { \"name\": \"BeltConveyor_Running\", \"path\": \"ns=2;s=BeltConveyor_Running\" },\n  { \"name\": \"BeltConveyor2_Speed\", \"path\": \"ns=2;s=BeltConveyor2_Speed\" },\n  { \"name\": \"BeltConveyor2_Running\", \"path\": \"ns=2;s=BeltConveyor2_Running\" },\n  { \"name\": \"BeltConveyor3_Speed\", \"path\": \"ns=2;s=BeltConveyor3_Speed\" },\n  { \"name\": \"BeltConveyor3_Running\", \"path\": \"ns=2;s=BeltConveyor3_Running\" },\n  { \"name\": \"Vastago_Extend\", \"path\": \"ns=2;s=Vastago_Extend\" },\n  { \"name\": \"S1_CMD\", \"path\": \"ns=2;s=S1_CMD\" },\n  { \"name\": \"S1_EXEC\", \"path\": \"ns=2;s=S1_EXEC\" },\n  { \"name\": \"S1_DONE\", \"path\": \"ns=2;s=S1_DONE\" },\n  { \"name\": \"S1_RUNNING\", \"path\": \"ns=2;s=S1_RUNNING\" },\n  { \"name\": \"S1_READY\", \"path\": \"ns=2;s=S1_READY\" },\n  { \"name\": \"S1_COUNT\", \"path\": \"ns=2;s=S1_COUNT\" },\n  { \"name\": \"S1_AUTO_ENABLE\", \"path\": \"ns=2;s=S1_AUTO_ENABLE\" },\n  { \"name\": \"S1_RATE\", \"path\": \"ns=2;s=S1_RATE\" },\n  { \"name\": \"Maquina1_Cut\", \"path\": \"ns=2;s=Maquina1_Cut\" },\n  { \"name\": \"Maquina1_Release\", \"path\": \"ns=2;s=Maquina1_Release\" },\n  { \"name\": \"Maquina1_Z\", \"path\": \"ns=2;s=Maquina1_Z\" },\n  { \"name\": \"Maquina1_Y\", \"path\": \"ns=2;s=Maquina1_Y\" },\n  { \"name\": \"Maquina1_Speed\", \"path\": \"ns=2;s=Maquina1_Speed\" },\n  { \"name\": \"Sensor1\", \"path\": \"ns=2;s=Sensor1\" },\n  { \"name\": \"SensorCeldas\", \"path\": \"ns=2;s=SensorCeldas\" },\n  { \"name\": \"SensorPlacers\", \"path\": \"ns=2;s=SensorPlacers\" },\n  { \"name\": \"6axisSensor1\", \"path\": \"ns=2;s=6axisSensor1\" },\n  { \"name\": \"S2_CMD\", \"path\": \"ns=2;s=S2_CMD\" },\n  { \"name\": \"S2_EXEC\", \"path\": \"ns=2;s=S2_EXEC\" },\n  { \"name\": \"S2_DONE\", \"path\": \"ns=2;s=S2_DONE\" },\n  { \"name\": \"S2_RUNNING\", \"path\": \"ns=2;s=S2_RUNNING\" },\n  { \"name\": \"S2_READY\", \"path\": \"ns=2;s=S2_READY\" },\n  { \"name\": \"S2_COUNT\", \"path\": \"ns=2;s=S2_COUNT\" },\n  { \"name\": \"S2_AUTO_ENABLE\", \"path\": \"ns=2;s=S2_AUTO_ENABLE\" },\n  { \"name\": \"S2_RATE\", \"path\": \"ns=2;s=S2_RATE\" },\n  { \"name\": \"Gantry1_Command\", \"path\": \"ns=2;s=Gantry1_Command\" },\n  { \"name\": \"Gantry1_Execute\", \"path\": \"ns=2;s=Gantry1_Execute\" },\n  { \"name\": \"Gantry1_Done\", \"path\": \"ns=2;s=Gantry1_Done\" },\n  { \"name\": \"Gantry1_Vacuum\", \"path\": \"ns=2;s=Gantry1_Vacuum\" },\n  { \"name\": \"Gantry2_Command\", \"path\": \"ns=2;s=Gantry2_Command\" },\n  { \"name\": \"Gantry2_Execute\", \"path\": \"ns=2;s=Gantry2_Execute\" },\n  { \"name\": \"Gantry2_Done\", \"path\": \"ns=2;s=Gantry2_Done\" },\n  { \"name\": \"Gantry2_Vacuum\", \"path\": \"ns=2;s=Gantry2_Vacuum\" },\n  { \"name\": \"Robot1_Command\", \"path\": \"ns=2;s=Robot1_Command\" },\n  { \"name\": \"Robot1_Execute\", \"path\": \"ns=2;s=Robot1_Execute\" },\n  { \"name\": \"Robot1_Done\", \"path\": \"ns=2;s=Robot1_Done\" },\n  { \"name\": \"Robot1_Vacuum\", \"path\": \"ns=2;s=Robot1_Vacuum\" },\n  { \"name\": \"IndexingBelt3_Step\", \"path\": \"ns=2;s=IndexingBelt3_Step\" },\n  { \"name\": \"IndexingBelt3_Running\", \"path\": \"ns=2;s=IndexingBelt3_Running\" },\n  { \"name\": \"H1_CMD\", \"path\": \"ns=2;s=H1_CMD\" },\n  { \"name\": \"H1_EXEC\", \"path\": \"ns=2;s=H1_EXEC\" },\n  { \"name\": \"H1_DONE\", \"path\": \"ns=2;s=H1_DONE\" },\n  { \"name\": \"H1_RUNNING\", \"path\": \"ns=2;s=H1_RUNNING\" },\n  { \"name\": \"H1_READY\", \"path\": \"ns=2;s=H1_READY\" },\n  { \"name\": \"H1_FAULT\", \"path\": \"ns=2;s=H1_FAULT\" },\n  { \"name\": \"H1_IN_POS\", \"path\": \"ns=2;s=H1_IN_POS\" },\n  { \"name\": \"H1_SETPOINT\", \"path\": \"ns=2;s=H1_SETPOINT\" },\n  { \"name\": \"H1_MV\", \"path\": \"ns=2;s=H1_MV\" },\n  { \"name\": \"H1_PV\", \"path\": \"ns=2;s=H1_PV\" },\n  { \"name\": \"H1_CYCLE_TIME\", \"path\": \"ns=2;s=H1_CYCLE_TIME\" },\n];\nreturn msg;",
+        "outputs":  1,
+        "timeout":  0,
+        "noerr":  0,
+        "initialize":  "",
+        "finalize":  "",
+        "libs":  [
+
+                 ],
+        "x":  710,
+        "y":  340,
+        "wires":  [
+                      [
+                          "oip-sim-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-debug",
+        "type":  "debug",
+        "z":  "9752e5c455c4e742",
+        "name":  "Tags simulador",
+        "active":  true,
+        "tosidebar":  true,
+        "console":  false,
+        "tostatus":  false,
+        "complete":  "payload",
+        "targetType":  "msg",
+        "statusVal":  "",
+        "statusType":  "auto",
+        "x":  1060,
+        "y":  520,
+        "wires":  [
+
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c3-05",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor3 0.5 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor3_Speed\",\"path\":\"ns=2;s=BeltConveyor3_Speed\",\"value\":0.5}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  320,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c3-10",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor3 1.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor3_Speed\",\"path\":\"ns=2;s=BeltConveyor3_Speed\",\"value\":1.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  350,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c3-20",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor3 2.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor3_Speed\",\"path\":\"ns=2;s=BeltConveyor3_Speed\",\"value\":2.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  380,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-io",
+        "type":  "opcua-server-io",
+        "z":  "9752e5c455c4e742",
+        "name":  "Leer del OPC UA",
+        "serverRef":  "Node-RED OPC UA Server",
+        "mode":  "read",
+        "identifierType":  "nodeId",
+        "tagPath":  "",
+        "tagNodeId":  "",
+        "methodName":  "",
+        "intervalMs":  "",
+        "inputs":  1,
+        "outputs":  1,
+        "x":  600,
+        "y":  240,
+        "wires":  [
+                      [
+                          "oip-sim-debug",
+                          "oip-sim-func-control"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-write-io",
+        "type":  "opcua-server-io",
+        "z":  "9752e5c455c4e742",
+        "name":  "Escribir velocidad al OPC UA",
+        "serverRef":  "Node-RED OPC UA Server",
+        "mode":  "write",
+        "identifierType":  "nodeId",
+        "tagPath":  "",
+        "tagNodeId":  "",
+        "methodName":  "",
+        "intervalMs":  "",
+        "inputs":  1,
+        "outputs":  1,
+        "x":  600,
+        "y":  180,
+        "wires":  [
+                      [
+
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c1-05",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor 0.5 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor_Speed\",\"path\":\"ns=2;s=BeltConveyor_Speed\",\"value\":0.5}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  80,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c1-10",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor 1.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor_Speed\",\"path\":\"ns=2;s=BeltConveyor_Speed\",\"value\":1.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  110,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c1-20",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor 2.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor_Speed\",\"path\":\"ns=2;s=BeltConveyor_Speed\",\"value\":2.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  140,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c2-05",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor2 0.5 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor2_Speed\",\"path\":\"ns=2;s=BeltConveyor2_Speed\",\"value\":0.5}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  200,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c2-10",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor2 1.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor2_Speed\",\"path\":\"ns=2;s=BeltConveyor2_Speed\",\"value\":1.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  230,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-speed-c2-20",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "BeltConveyor2 2.0 m/s",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "",
+        "crontab":  "",
+        "once":  false,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "[{\"name\":\"BeltConveyor2_Speed\",\"path\":\"ns=2;s=BeltConveyor2_Speed\",\"value\":2.0}]",
+        "payloadType":  "json",
+        "x":  200,
+        "y":  260,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-inject-loop",
+        "type":  "inject",
+        "z":  "9752e5c455c4e742",
+        "name":  "Bucle de control (50 ms)",
+        "props":  [
+                      {
+                          "p":  "payload"
+                      }
+                  ],
+        "repeat":  "0.05",
+        "crontab":  "",
+        "once":  true,
+        "onceDelay":  0.1,
+        "topic":  "",
+        "payload":  "",
+        "payloadType":  "date",
+        "x":  160,
+        "y":  300,
+        "wires":  [
+                      [
+                          "oip-sim-func"
+                      ]
+                  ]
+    },
+    {
+        "id":  "oip-sim-func-control",
+        "type":  "function",
+        "z":  "9752e5c455c4e742",
+        "name":  "Control: sensores, cintas, spawners y robot",
+        "func":  "// Control de linea OIP (generado por apply_control_flow.js)\n// Entrada: msg.payload = [{name,path,value,status}] (lectura OPC UA, cada 50ms)\n// Salida:  msg.payload = [{name,path,value}]        (escritura OPC UA)\nconst v = {};\nfor (let i = 0; i \u003c msg.payload.length; i++) {\n    v[msg.payload[i].name] = msg.payload[i].value;\n}\nconst writes = [];\nconst now = Date.now();\nconst c = context;\nfunction w(name, path, value) {\n    const key = \u0027out:\u0027 + path;\n    const last = c.get(key);\n    const lastAt = c.get(key + \u0027:ts\u0027) || 0;\n    if (last === value \u0026\u0026 now - lastAt \u003c= REASSERT_MS) return;\n    writes.push({ name: name, path: path, value: value });\n    c.set(key, value);\n    c.set(key + \u0027:ts\u0027, now);\n}\nconst robotSensor0 = !!v[\"SensorCeldas\"];\nconst robotSensor1 = !!v[\"SensorPlacers\"];\nconst robotSensor2 = !!v[\"6axisSensor1\"];\nconst robotDone = [!!v[\"Gantry1_Done\"], !!v[\"Gantry2_Done\"], !!v[\"Robot1_Done\"]];\nconst hornoDone = !!v[\"H1_DONE\"];\nconst hornoRunning = !!v[\"H1_RUNNING\"];\n\nconst SPEED = 0.2;\nconst REASSERT_MS = 5000;\nconst EXEC_PULSE_MS = 400;\nconst VAC_DWELL_MS = 300;\nconst STEP_PULSE_MS = 200;\nconst BATCH_SIZE = 6;\nconst BATCH_GAP_STEPS = 2;\nconst MQ_MOVE_MS = 400;\nconst MQ_PULSE_MS = 200;\n\nconst READY_TAGS = [\"S1_READY\",\"S2_READY\"];\nconst simulatorReady = READY_TAGS.length === 0 || READY_TAGS.every(name =\u003e !!v[name]);\nconst simulatorWasReady = c.get(\u0027simulatorReady\u0027);\nconst simulatorRestart = simulatorReady \u0026\u0026 simulatorWasReady === false;\nc.set(\u0027simulatorReady\u0027, simulatorReady);\nfunction resetControlState() {\n    c.set(\u0027state\u0027, \u0027RUN\u0027);\n    c.set(\u0027rstep\u0027, 0);\n    c.set(\u0027activeRobot\u0027, -1);\n    c.set(\u0027nextRobot\u0027, 0);\n    c.set(\u0027waitingRobot\u0027, -1);\n    c.set(\u0027waitingRobot6ax\u0027, -1);\n    c.set(\u0027vacDwellUntil\u0027, 0);\n    c.set(\u0027stepPulseUntil\u0027, 0);\n    c.set(\u0027lastPause\u0027, false);\n    c.set(\u0027mqStarted\u0027, false);\n    c.set(\u0027mqFinished\u0027, false);\n    c.set(\u0027mqStep\u0027, 0);\n    c.set(\u0027mqTarget\u0027, null);\n    c.set(\u0027mqDwellUntil\u0027, 0);\n    c.set(\u0027batchUnitCount\u0027, 0);\n    c.set(\u0027batchGapPending\u0027, false);\n    c.set(\u0027batchGapRemaining\u0027, 0);\n    c.set(\u0027batchGapNextAt\u0027, 0);\n    c.set(\u0027hornoArmed\u0027, false);\n    c.set(\u0027hornoExecHigh\u0027, false);\n    c.set(\u0027hornoExecLowSince\u0027, 0);\n    c.set(\u0027hornoMvSent\u0027, 0);\n    c.set(\u0027hornoSpSent\u0027, 0);\n    c.set(\u0027execHigh\u0027, []);\n    c.set(\u0027execLowSince\u0027, []);\n    c.set(\u0027execHighSince\u0027, []);\n    c.set(\u0027robotPending0\u0027, false);\n    c.set(\u0027robotPending1\u0027, false);\n    c.set(\u0027robotPending2\u0027, false);\n    c.set(\u0027r2Armed\u0027, true);\n    c.set(\u0027gridIdx2\u0027, 0);\n    c.set(\u0027belt:BeltConveyor_Speed\u0027, null);\n    c.set(\u0027beltTs:BeltConveyor_Speed\u0027, 0);\n    c.set(\u0027belt:BeltConveyor2_Speed\u0027, null);\n    c.set(\u0027beltTs:BeltConveyor2_Speed\u0027, 0);\n    c.set(\u0027belt:BeltConveyor3_Speed\u0027, null);\n    c.set(\u0027beltTs:BeltConveyor3_Speed\u0027, 0);\n    c.set(\u0027spawn0On\u0027, null);\n    c.set(\u0027spawn0Rate\u0027, null);\n    c.set(\u0027spawn0Ts\u0027, 0);\n    c.set(\u0027spawn1On\u0027, null);\n    c.set(\u0027spawn1Rate\u0027, null);\n    c.set(\u0027spawn1Ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=BeltConveyor_Speed\u0027, null);\n    c.set(\u0027out:ns=2;s=BeltConveyor_Speed:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=BeltConveyor2_Speed\u0027, null);\n    c.set(\u0027out:ns=2;s=BeltConveyor2_Speed:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=BeltConveyor3_Speed\u0027, null);\n    c.set(\u0027out:ns=2;s=BeltConveyor3_Speed:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=S1_AUTO_ENABLE\u0027, null);\n    c.set(\u0027out:ns=2;s=S1_AUTO_ENABLE:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=S1_RATE\u0027, null);\n    c.set(\u0027out:ns=2;s=S1_RATE:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=S2_AUTO_ENABLE\u0027, null);\n    c.set(\u0027out:ns=2;s=S2_AUTO_ENABLE:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=S2_RATE\u0027, null);\n    c.set(\u0027out:ns=2;s=S2_RATE:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry1_Command\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry1_Command:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry1_Execute\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry1_Execute:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry1_Vacuum\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry1_Vacuum:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry2_Command\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry2_Command:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry2_Execute\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry2_Execute:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Gantry2_Vacuum\u0027, null);\n    c.set(\u0027out:ns=2;s=Gantry2_Vacuum:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Robot1_Command\u0027, null);\n    c.set(\u0027out:ns=2;s=Robot1_Command:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Robot1_Execute\u0027, null);\n    c.set(\u0027out:ns=2;s=Robot1_Execute:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Robot1_Vacuum\u0027, null);\n    c.set(\u0027out:ns=2;s=Robot1_Vacuum:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=IndexingBelt3_Step\u0027, null);\n    c.set(\u0027out:ns=2;s=IndexingBelt3_Step:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Maquina1_Z\u0027, null);\n    c.set(\u0027out:ns=2;s=Maquina1_Z:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Maquina1_Release\u0027, null);\n    c.set(\u0027out:ns=2;s=Maquina1_Release:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Maquina1_Cut\u0027, null);\n    c.set(\u0027out:ns=2;s=Maquina1_Cut:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Maquina1_Y\u0027, null);\n    c.set(\u0027out:ns=2;s=Maquina1_Y:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=Maquina1_Speed\u0027, null);\n    c.set(\u0027out:ns=2;s=Maquina1_Speed:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=H1_CMD\u0027, null);\n    c.set(\u0027out:ns=2;s=H1_CMD:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=H1_EXEC\u0027, null);\n    c.set(\u0027out:ns=2;s=H1_EXEC:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=H1_MV\u0027, null);\n    c.set(\u0027out:ns=2;s=H1_MV:ts\u0027, 0);\n    c.set(\u0027out:ns=2;s=H1_SETPOINT\u0027, null);\n    c.set(\u0027out:ns=2;s=H1_SETPOINT:ts\u0027, 0);\n}\nif (!simulatorReady) {\n    resetControlState();\n    return null;\n}\nif (simulatorRestart) resetControlState();\n\nlet state = c.get(\u0027state\u0027) || \u0027RUN\u0027;\nlet rstep = c.get(\u0027rstep\u0027) || 0;\nlet activeRobot = c.get(\u0027activeRobot\u0027);\nif (activeRobot === undefined || activeRobot === null) activeRobot = -1;\nlet nextRobot = c.get(\u0027nextRobot\u0027);\nif (typeof nextRobot !== \u0027number\u0027 || nextRobot \u003c 0 || nextRobot \u003e= 3) nextRobot = 0;\nconst ROBOT_START_STEPS = [0,8,16];\nlet execHigh = c.get(\u0027execHigh\u0027) || [];\nlet execLowSince = c.get(\u0027execLowSince\u0027) || [];\nlet execHighSince = c.get(\u0027execHighSince\u0027) || [];\nconst ROB_COUNT = 3;\nfor (let i = 0; i \u003c ROB_COUNT; i++) {\n    if (execHigh[i] === undefined) execHigh[i] = false;\n    if (execLowSince[i] === undefined) execLowSince[i] = 0;\n    if (execHighSince[i] === undefined) execHighSince[i] = 0;\n}\nconst mqDone = !c.get(\u0027mqStarted\u0027) || c.get(\u0027mqFinished\u0027);\n\nif (activeRobot !== 0) c.set(\u0027robotPending0\u0027, robotSensor0);\nconst sRobotEdge0 = !!c.get(\u0027robotPending0\u0027);\nif (activeRobot !== 1) c.set(\u0027robotPending1\u0027, robotSensor1);\nconst sRobotEdge1 = !!c.get(\u0027robotPending1\u0027);\nlet sRobotEdge2 = false;\nif (activeRobot === 2) {\n    if (!robotSensor2) c.set(\u0027r2Armed\u0027, true);\n} else if (!robotSensor2) {\n    c.set(\u0027r2Armed\u0027, true);\n} else {\n    sRobotEdge2 = c.get(\u0027r2Armed\u0027) !== false;\n}\nconst ROBOT_PENDING = [sRobotEdge0, sRobotEdge1, sRobotEdge2];\nfunction robotTurnAllows(ri) {\n    let start = c.get(\u0027nextRobot\u0027);\n    if (typeof start !== \u0027number\u0027 || start \u003c 0 || start \u003e= ROB_COUNT) start = 0;\n    for (let offset = 0; offset \u003c ROB_COUNT; offset++) {\n        const candidate = (start + offset) % ROB_COUNT;\n        if (ROBOT_PENDING[candidate]) return candidate === ri;\n    }\n    return false;\n}\n\nconst BELT_GROUPS = [{\"name\":\"celdas\",\"speed\":0.2,\"items\":[{\"name\":\"BeltConveyor_Speed\",\"path\":\"ns=2;s=BeltConveyor_Speed\"},{\"name\":\"BeltConveyor2_Speed\",\"path\":\"ns=2;s=BeltConveyor2_Speed\"}]},{\"name\":\"placers\",\"speed\":0.2,\"items\":[{\"name\":\"BeltConveyor3_Speed\",\"path\":\"ns=2;s=BeltConveyor3_Speed\"}]}];\n// Write-on-change por grupo de alimentacion; cada rama puede detenerse\n// sin afectar a las demas y se re-asserta cada REASSERT_MS.\nfunction beltGroup(name, speed) {\n    for (let gi = 0; gi \u003c BELT_GROUPS.length; gi++) {\n        const group = BELT_GROUPS[gi];\n        if (group.name !== name) continue;\n        for (let i = 0; i \u003c group.items.length; i++) {\n            const b = group.items[i];\n            if (c.get(\u0027belt:\u0027 + b.name) !== speed || now - (c.get(\u0027beltTs:\u0027 + b.name) || 0) \u003e REASSERT_MS) {\n                w(b.name, b.path, speed);\n                c.set(\u0027belt:\u0027 + b.name, speed);\n                c.set(\u0027beltTs:\u0027 + b.name, now);\n            }\n        }\n        return;\n    }\n}\nfunction belts(speed) {\n    for (let gi = 0; gi \u003c BELT_GROUPS.length; gi++) {\n        beltGroup(BELT_GROUPS[gi].name, speed);\n    }\n}\n\nconst SPAWNERS = [{\"autoEnable\":{\"name\":\"S1_AUTO_ENABLE\",\"path\":\"ns=2;s=S1_AUTO_ENABLE\"},\"rate\":{\"name\":\"S1_RATE\",\"path\":\"ns=2;s=S1_RATE\"},\"rateValue\":30},{\"autoEnable\":{\"name\":\"S2_AUTO_ENABLE\",\"path\":\"ns=2;s=S2_AUTO_ENABLE\"},\"rate\":{\"name\":\"S2_RATE\",\"path\":\"ns=2;s=S2_RATE\"},\"rateValue\":30}];\nfunction spawner(index, on) {\n    if (index \u003c 0 || index \u003e= SPAWNERS.length) return;\n    const s = SPAWNERS[index];\n    const key = \u0027spawn\u0027 + index;\n    const lastOn = c.get(key + \u0027On\u0027);\n    const lastRate = c.get(key + \u0027Rate\u0027);\n    const stale = now - (c.get(key + \u0027Ts\u0027) || 0) \u003e REASSERT_MS;\n    let wrote = false;\n    if (lastOn !== on || stale) {\n        w(s.autoEnable.name, s.autoEnable.path, on);\n        c.set(key + \u0027On\u0027, on);\n        wrote = true;\n    }\n    if (lastRate !== s.rateValue || stale) {\n        w(s.rate.name, s.rate.path, s.rateValue);\n        c.set(key + \u0027Rate\u0027, s.rateValue);\n        wrote = true;\n    }\n    if (wrote) c.set(key + \u0027Ts\u0027, now);\n}\nfunction spawners(on) {\n    for (let i = 0; i \u003c SPAWNERS.length; i++) spawner(i, on);\n}\n\nconst FEEDS = [{\"name\":\"celdas\",\"sensor\":\"SensorCeldas\",\"beltGroup\":\"celdas\",\"spawners\":[0]},{\"name\":\"placers\",\"sensor\":\"SensorPlacers\",\"beltGroup\":\"placers\",\"spawners\":[1]}];\n// Sensor alto significa producto disponible en el punto de toma.\n// La rama ocupada se para; las demas conservan su velocidad.\nfunction feedControl() {\n    if (!FEEDS.length) {\n        belts(SPEED);\n        spawners(true);\n        return;\n    }\n    for (let i = 0; i \u003c FEEDS.length; i++) {\n        const feed = FEEDS[i];\n        const occupied = v[feed.sensor] === undefined ? true : !!v[feed.sensor];\n        let speed = SPEED;\n        for (let gi = 0; gi \u003c BELT_GROUPS.length; gi++) {\n            if (BELT_GROUPS[gi].name === feed.beltGroup) {\n                speed = BELT_GROUPS[gi].speed;\n                break;\n            }\n        }\n        beltGroup(feed.beltGroup, occupied ? 0 : speed);\n        for (let si = 0; si \u003c feed.spawners.length; si++) {\n            spawner(feed.spawners[si], !occupied);\n        }\n    }\n}\n\nconst ROB = [{\"name\":\"Gantry1\",\"command\":{\"name\":\"Gantry1_Command\",\"path\":\"ns=2;s=Gantry1_Command\",\"type\":\"Int16\"},\"execute\":{\"name\":\"Gantry1_Execute\",\"path\":\"ns=2;s=Gantry1_Execute\"},\"done\":{\"name\":\"Gantry1_Done\",\"path\":\"ns=2;s=Gantry1_Done\"},\"vacuum\":{\"name\":\"Gantry1_Vacuum\",\"path\":\"ns=2;s=Gantry1_Vacuum\"},\"gridCmds\":null},{\"name\":\"Gantry2\",\"command\":{\"name\":\"Gantry2_Command\",\"path\":\"ns=2;s=Gantry2_Command\",\"type\":\"Int16\"},\"execute\":{\"name\":\"Gantry2_Execute\",\"path\":\"ns=2;s=Gantry2_Execute\"},\"done\":{\"name\":\"Gantry2_Done\",\"path\":\"ns=2;s=Gantry2_Done\"},\"vacuum\":{\"name\":\"Gantry2_Vacuum\",\"path\":\"ns=2;s=Gantry2_Vacuum\"},\"gridCmds\":null},{\"name\":\"6axisRobot\",\"command\":{\"name\":\"Robot1_Command\",\"path\":\"ns=2;s=Robot1_Command\",\"type\":\"Int16\"},\"execute\":{\"name\":\"Robot1_Execute\",\"path\":\"ns=2;s=Robot1_Execute\"},\"done\":{\"name\":\"Robot1_Done\",\"path\":\"ns=2;s=Robot1_Done\"},\"vacuum\":{\"name\":\"Robot1_Vacuum\",\"path\":\"ns=2;s=Robot1_Vacuum\"},\"gridCmds\":[4,5,6,7,8,9,10,11]}];\n// Handshake robusto por robot: execute LOW durante EXEC_PULSE_MS (el gantry sondea a 30ms\n// y SIEMPRE vera el LOW), despues HIGH; pasado otro EXEC_PULSE_MS se da el paso\n// por completado cuando done==true. No puede quedarse colgado.\nfunction robotMove(ri, cmd) {\n    const R = ROB[ri];\n    w(R.command.name, R.command.path, cmd);\n    let doneRi = robotDone[ri];\n    if (!execHigh[ri]) {\n        if (!execLowSince[ri]) execLowSince[ri] = now;\n        if (now - execLowSince[ri] \u003c EXEC_PULSE_MS) {\n            w(R.execute.name, R.execute.path, false);\n            return false;\n        }\n        execLowSince[ri] = 0;\n        execHigh[ri] = true;\n        execHighSince[ri] = now;\n        return false;\n    }\n    w(R.execute.name, R.execute.path, true);\n    if (now - execHighSince[ri] \u003c EXEC_PULSE_MS) return false;\n    if (doneRi) {\n        execHigh[ri] = false;\n        execLowSince[ri] = 0;\n        execHighSince[ri] = 0;\n        return true;\n    }\n    return false;\n}\n\n// Igual que robotMove pero el cmd se resuelve en runtime: recorre\n// R.gridCmds en ciclo (contador persistente gridIdx\u003cri\u003e en context).\n// El indice solo avanza cuando done confirma la llegada, asi un ciclo\n// abortado no pierde la posicion de la grilla.\nfunction robotMoveGrid(ri) {\n    const R = ROB[ri];\n    const cmds = R.gridCmds || [0];\n    let gi = c.get(\u0027gridIdx\u0027 + ri);\n    if (gi === undefined || gi === null) gi = 0;\n    w(R.command.name, R.command.path, cmds[gi % cmds.length]);\n    if (!execHigh[ri]) {\n        if (!execLowSince[ri]) execLowSince[ri] = now;\n        if (now - execLowSince[ri] \u003c EXEC_PULSE_MS) {\n            w(R.execute.name, R.execute.path, false);\n            return false;\n        }\n        execLowSince[ri] = 0;\n        execHigh[ri] = true;\n        execHighSince[ri] = now;\n        return false;\n    }\n    w(R.execute.name, R.execute.path, true);\n    if (now - execHighSince[ri] \u003c EXEC_PULSE_MS) return false;\n    if (robotDone[ri]) {\n        c.set(\u0027gridIdx\u0027 + ri, gi + 1);\n        execHigh[ri] = false;\n        execLowSince[ri] = 0;\n        execHighSince[ri] = 0;\n        return true;\n    }\n    return false;\n}\n\nconst INDEXING_BELTS = [{\"step\":{\"name\":\"IndexingBelt3_Step\",\"path\":\"ns=2;s=IndexingBelt3_Step\"},\"running\":{\"name\":\"IndexingBelt3_Running\",\"path\":\"ns=2;s=IndexingBelt3_Running\"}}];\nfunction indexingBeltsPulse(active) {\n    for (let i = 0; i \u003c INDEXING_BELTS.length; i++) {\n        const ib = INDEXING_BELTS[i];\n        const last = c.get(\u0027ibStep:\u0027 + ib.step.name);\n        if (last !== active || now - (c.get(\u0027ibStepTs:\u0027 + ib.step.name) || 0) \u003e REASSERT_MS) {\n            w(ib.step.name, ib.step.path, active);\n            c.set(\u0027ibStep:\u0027 + ib.step.name, active);\n            c.set(\u0027ibStepTs:\u0027 + ib.step.name, now);\n        }\n    }\n}\nfunction indexingIdle() {\n    for (let i = 0; i \u003c INDEXING_BELTS.length; i++) {\n        const ib = INDEXING_BELTS[i];\n        if (ib.running \u0026\u0026 v[ib.running.name]) return false;\n    }\n    return true;\n}\n\nfunction waitForRobot(ri) {\n    activeRobot = -1;\n    rstep = ROBOT_START_STEPS[ri];\n    c.set(\u0027waitingRobot\u0027, ri);\n    c.set(\u0027vacDwellUntil\u0027, 0);\n    state = \u0027WAIT_ROBOT\u0027;\n}\nfunction finishRobotSequence() {\n    if (activeRobot \u003e= 0 \u0026\u0026 !ROB[activeRobot].oneShot) nextRobot = (activeRobot + 1) % ROB_COUNT;\n    activeRobot = -1;\n    const _saved6ax = c.get(\u0027waitingRobot6ax\u0027);\n    if (typeof _saved6ax === \u0027number\u0027 \u0026\u0026 _saved6ax \u003e= 0) {\n        c.set(\u0027waitingRobot6ax\u0027, -1);\n        c.set(\u0027waitingRobot\u0027, _saved6ax);\n        rstep = ROBOT_START_STEPS[_saved6ax];\n        c.set(\u0027vacDwellUntil\u0027, 0);\n        state = \u0027WAIT_ROBOT\u0027;\n    } else if (c.get(\u0027batchGapPending\u0027)) {\n        c.set(\u0027batchGapPending\u0027, false);\n        c.set(\u0027batchGapRemaining\u0027, BATCH_GAP_STEPS);\n        c.set(\u0027batchGapNextAt\u0027, 0);\n        c.set(\u0027stepPulseUntil\u0027, now + STEP_PULSE_MS);\n        state = \u0027BATCH_GAP\u0027;\n    } else {\n        state = \u0027RUN\u0027;\n    }\n}\nfunction countBatchUnit() {\n    const count = (c.get(\u0027batchUnitCount\u0027) || 0) + 1;\n    if (count \u003e= BATCH_SIZE) {\n        c.set(\u0027batchUnitCount\u0027, 0);\n        c.set(\u0027batchGapPending\u0027, true);\n    } else {\n        c.set(\u0027batchUnitCount\u0027, count);\n    }\n}\n\nconst MQ = {\"z\":{\"name\":\"Maquina1_Z\",\"path\":\"ns=2;s=Maquina1_Z\"},\"y\":{\"name\":\"Maquina1_Y\",\"path\":\"ns=2;s=Maquina1_Y\"},\"speed\":{\"name\":\"Maquina1_Speed\",\"path\":\"ns=2;s=Maquina1_Speed\"},\"release\":{\"name\":\"Maquina1_Release\",\"path\":\"ns=2;s=Maquina1_Release\"},\"cut\":{\"name\":\"Maquina1_Cut\",\"path\":\"ns=2;s=Maquina1_Cut\"},\"zMoves\":[0.622,0.352]};\nconst MAQUINA_Y = 0;\nconst MAQUINA_SPEED = 1;\n// Maquina1: secuencia tras el pulso del indexing belt, en paralelo al ultimo robot.\n// zMoves[0..n] -\u003e release (pulso) -\u003e cut (pulso). Corre mientras el ultimo robot\n// transporta el placer y garantiza terminar ANTES del vacuum OFF (mqDone).\nfunction startMaquina() {\n    if (c.get(\u0027mqStarted\u0027)) return;\n    c.set(\u0027mqStarted\u0027, true);\n    c.set(\u0027mqFinished\u0027, false);\n    c.set(\u0027mqStep\u0027, 0);\n    c.set(\u0027mqTarget\u0027, null);\n    c.set(\u0027mqDwellUntil\u0027, 0);\n    if (MQ.y) w(MQ.y.name, MQ.y.path, MAQUINA_Y);\n    if (MQ.speed) w(MQ.speed.name, MQ.speed.path, MAQUINA_SPEED);\n}\nfunction maquinaRun() {\n    if (!c.get(\u0027mqStarted\u0027) || c.get(\u0027mqFinished\u0027)) return;\n    let s = c.get(\u0027mqStep\u0027) || 0;\n    const d = c.get(\u0027mqDwellUntil\u0027) || 0;\n    const ZL = MQ.zMoves.length;\n    if (s \u003c ZL) {\n        const target = MQ.zMoves[s];\n        if (c.get(\u0027mqTarget\u0027) !== target) {\n            w(MQ.z.name, MQ.z.path, target);\n            c.set(\u0027mqTarget\u0027, target);\n            c.set(\u0027mqDwellUntil\u0027, now + MQ_MOVE_MS);\n        } else if (now \u003e= d) {\n            c.set(\u0027mqStep\u0027, s + 1);\n            c.set(\u0027mqTarget\u0027, null);\n        }\n    } else if (s === ZL) {\n        if (now \u003e= d) {\n            w(MQ.release.name, MQ.release.path, true);\n            c.set(\u0027mqDwellUntil\u0027, now + MQ_PULSE_MS);\n            c.set(\u0027mqStep\u0027, s + 1);\n        }\n    } else if (s === ZL + 1) {\n        if (now \u003e= d) {\n            w(MQ.release.name, MQ.release.path, false);\n            w(MQ.cut.name, MQ.cut.path, true);\n            c.set(\u0027mqDwellUntil\u0027, now + MQ_PULSE_MS);\n            c.set(\u0027mqStep\u0027, s + 1);\n        }\n    } else if (s === ZL + 2) {\n        if (now \u003e= d) {\n            w(MQ.cut.name, MQ.cut.path, false);\n            c.set(\u0027mqFinished\u0027, true);\n        }\n    }\n}\n\nconst HORNO = {\"command\":{\"name\":\"H1_CMD\",\"path\":\"ns=2;s=H1_CMD\"},\"execute\":{\"name\":\"H1_EXEC\",\"path\":\"ns=2;s=H1_EXEC\"},\"mv\":{\"name\":\"H1_MV\",\"path\":\"ns=2;s=H1_MV\"},\"setpoint\":{\"name\":\"H1_SETPOINT\",\"path\":\"ns=2;s=H1_SETPOINT\"}};\nconst HORNO_MV = 100;\nconst HORNO_SETPOINT = 150;\n// Horno: ciclo termico disparado por cada paso del indexing belt (fire-and-forget).\n// hornoFire() se llama en el caso del pulso; hornoRun() cada tick (todos los estados).\n// Un ciclo por paso: hornoArmed bloquea re-disparo hasta que H1_DONE se active.\nfunction hornoFire() {\n    if (c.get(\u0027hornoArmed\u0027)) return;\n    c.set(\u0027hornoArmed\u0027, true);\n    c.set(\u0027hornoExecLowSince\u0027, now);\n    c.set(\u0027hornoExecHigh\u0027, false);\n}\nfunction hornoRun() {\n    if (!c.get(\u0027hornoArmed\u0027)) {\n        if (c.get(\u0027hornoMvSent\u0027) !== 0) {\n            w(HORNO.mv.name, HORNO.mv.path, 0);\n            c.set(\u0027hornoMvSent\u0027, 0);\n        }\n        return;\n    }\n    w(HORNO.command.name, HORNO.command.path, 1);\n    if (!c.get(\u0027hornoExecHigh\u0027)) {\n        const lo = c.get(\u0027hornoExecLowSince\u0027) || 0;\n        if (now - lo \u003c EXEC_PULSE_MS) {\n            w(HORNO.execute.name, HORNO.execute.path, false);\n            return;\n        }\n        c.set(\u0027hornoExecHigh\u0027, true);\n        w(HORNO.execute.name, HORNO.execute.path, true);\n        return;\n    }\n    w(HORNO.execute.name, HORNO.execute.path, true);\n    if (c.get(\u0027hornoMvSent\u0027) !== HORNO_MV) {\n        w(HORNO.mv.name, HORNO.mv.path, HORNO_MV);\n        c.set(\u0027hornoMvSent\u0027, HORNO_MV);\n    }\n    if (c.get(\u0027hornoSpSent\u0027) !== HORNO_SETPOINT) {\n        w(HORNO.setpoint.name, HORNO.setpoint.path, HORNO_SETPOINT);\n        c.set(\u0027hornoSpSent\u0027, HORNO_SETPOINT);\n    }\n    if (hornoDone) {\n        c.set(\u0027hornoArmed\u0027, false);\n        w(HORNO.mv.name, HORNO.mv.path, 0);\n        c.set(\u0027hornoMvSent\u0027, 0);\n    }\n}\n\n// 6-axis: sensor directo, independiente de los gantries. Se lanza cuando\n// activeRobot no es el propio robot (state puede ser cualquier valor).\n// Si estaba en WAIT_ROBOT (gantry encadenado), preserva waitingRobot.\nif (true \u0026\u0026 sRobotEdge2 \u0026\u0026 activeRobot !== 2) {\n    const _savedWR = c.get(\u0027waitingRobot\u0027);\n    if (typeof _savedWR === \u0027number\u0027 \u0026\u0026 _savedWR \u003e= 0) c.set(\u0027waitingRobot6ax\u0027, _savedWR);\n    state = \u0027ROBOT\u0027;\n    activeRobot = 2;\n    rstep = ROBOT_START_STEPS[2]; \n    c.set(\u0027r2Armed\u0027, false);\n    for (let i = 0; i \u003c ROB_COUNT; i++) {\n        execHigh[i] = false; execLowSince[i] = 0; execHighSince[i] = 0;\n    }\n    c.set(\u0027vacDwellUntil\u0027, 0);\n    c.set(\u0027stepPulseUntil\u0027, 0);\n    indexingBeltsPulse(false);\n    feedControl();\n    w(ROB[2].vacuum.name, ROB[2].vacuum.path, false);\n}\n\nswitch (state) {\n    case \u0027RUN\u0027:\n        if (true \u0026\u0026 sRobotEdge0 \u0026\u0026 robotTurnAllows(0)) {\n            state = \u0027ROBOT\u0027;\n            activeRobot = 0;\n            rstep = ROBOT_START_STEPS[0];\n            c.set(\u0027robotPending0\u0027, false);\n            for (let i = 0; i \u003c ROB_COUNT; i++) {\n                execHigh[i] = false; execLowSince[i] = 0; execHighSince[i] = 0;\n            }\n            c.set(\u0027vacDwellUntil\u0027, 0);\n            c.set(\u0027stepPulseUntil\u0027, 0);\n            indexingBeltsPulse(false);\n            c.set(\u0027mqStarted\u0027, false);\n            c.set(\u0027mqFinished\u0027, false);\n            c.set(\u0027mqStep\u0027, 0);\n            c.set(\u0027mqTarget\u0027, null);\n            c.set(\u0027mqDwellUntil\u0027, 0);\n            feedControl();\n            w(ROB[0].vacuum.name, ROB[0].vacuum.path, false);\n        } else if (false \u0026\u0026 sRobotEdge1 \u0026\u0026 robotTurnAllows(1) \u0026\u0026 indexingIdle()) {\n            state = \u0027ROBOT\u0027;\n            activeRobot = 1;\n            rstep = ROBOT_START_STEPS[1];\n            c.set(\u0027robotPending1\u0027, false);\n            for (let i = 0; i \u003c ROB_COUNT; i++) {\n                execHigh[i] = false; execLowSince[i] = 0; execHighSince[i] = 0;\n            }\n            c.set(\u0027vacDwellUntil\u0027, 0);\n            c.set(\u0027stepPulseUntil\u0027, 0);\n            indexingBeltsPulse(false);\n            c.set(\u0027mqStarted\u0027, false);\n            c.set(\u0027mqFinished\u0027, false);\n            c.set(\u0027mqStep\u0027, 0);\n            c.set(\u0027mqTarget\u0027, null);\n            c.set(\u0027mqDwellUntil\u0027, 0);\n            feedControl();\n            w(ROB[1].vacuum.name, ROB[1].vacuum.path, false);\n        } else {\n            feedControl();\n            indexingBeltsPulse(false);\n        }\n        break;\n\n    case \u0027ROBOT\u0027:\n        feedControl();\n        if (now \u003c (c.get(\u0027stepPulseUntil\u0027) || 0)) {\n            indexingBeltsPulse(true);\n        } else {\n            indexingBeltsPulse(false);\n        }\n        switch (rstep) {\n            case 0: // R0 mover a cmd 1\n                if (robotMove(0, 1)) rstep = 1;\n                break;\n            case 1: // R0 vacuum true\n                    w(ROB[0].vacuum.name, ROB[0].vacuum.path, true);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 2;\n                break;\n            case 2: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) rstep = 3;\n                break;\n            case 3: // R0 mover a cmd 0\n                if (robotMove(0, 0)) rstep = 4;\n                break;\n            case 4: // R0 mover a cmd 2\n                if (robotMove(0, 2)) rstep = 5;\n                break;\n            case 5: // R0 mover a cmd 3\n                if (robotMove(0, 3)) rstep = 6;\n                break;\n            case 6: // R0 vacuum false\n                    w(ROB[0].vacuum.name, ROB[0].vacuum.path, false);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 7;\n                break;\n            case 7: // esperar vacuum + pulso indexing\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) {\n                    c.set(\u0027stepPulseUntil\u0027, now + STEP_PULSE_MS);\n                    countBatchUnit();\n                    startMaquina();\n                    hornoFire();\n                    waitForRobot(1);\n                }\n                break;\n            case 8: // R1 mover a cmd 1\n                if (robotMove(1, 1)) rstep = 9;\n                break;\n            case 9: // R1 vacuum true\n                    w(ROB[1].vacuum.name, ROB[1].vacuum.path, true);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 10;\n                break;\n            case 10: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) rstep = 11;\n                break;\n            case 11: // R1 mover a cmd 0\n                if (robotMove(1, 0)) rstep = 12;\n                break;\n            case 12: // R1 mover a cmd 2\n                if (robotMove(1, 2)) rstep = 13;\n                break;\n            case 13: // R1 mover a cmd 3\n                if (robotMove(1, 3)) rstep = 14;\n                break;\n            case 14: // R1 vacuum false\n                    w(ROB[1].vacuum.name, ROB[1].vacuum.path, false);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 15;\n                break;\n            case 15: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) finishRobotSequence();\n                break;\n            case 16: // R2 mover a cmd 1\n                if (robotMove(2, 1)) rstep = 17;\n                break;\n            case 17: // R2 vacuum true\n                    w(ROB[2].vacuum.name, ROB[2].vacuum.path, true);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 18;\n                break;\n            case 18: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) rstep = 19;\n                break;\n            case 19: // R2 mover a cmd 2\n                if (robotMove(2, 2)) rstep = 20;\n                break;\n            case 20: // R2 mover a cmd 3\n                if (robotMove(2, 3)) rstep = 21;\n                break;\n            case 21: // R2 vacuum false\n                    w(ROB[2].vacuum.name, ROB[2].vacuum.path, false);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 22;\n                break;\n            case 22: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) rstep = 23;\n                break;\n            case 23: // R2 mover a cmd 1\n                if (robotMove(2, 1)) rstep = 24;\n                break;\n            case 24: // R2 vacuum true\n                    w(ROB[2].vacuum.name, ROB[2].vacuum.path, true);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 25;\n                break;\n            case 25: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) rstep = 26;\n                break;\n            case 26: // R2 mover a cmd grid[4,5,6,7,8,9,10,11]\n                if (robotMoveGrid(2)) rstep = 27;\n                break;\n            case 27: // R2 vacuum false\n                    w(ROB[2].vacuum.name, ROB[2].vacuum.path, false);\n                    c.set(\u0027vacDwellUntil\u0027, now + VAC_DWELL_MS);\n                    rstep = 28;\n                break;\n            case 28: // esperar vacuum\n                if (now \u003e= c.get(\u0027vacDwellUntil\u0027)) finishRobotSequence();\n                break;\n        }\n        maquinaRun();\n        break;\n\n    case \u0027WAIT_ROBOT\u0027:\n        feedControl();\n        if (now \u003c (c.get(\u0027stepPulseUntil\u0027) || 0)) {\n            indexingBeltsPulse(true);\n        } else {\n            indexingBeltsPulse(false);\n        }\n        const waitingRobot = c.get(\u0027waitingRobot\u0027);\n        if (waitingRobot \u003e= 0 \u0026\u0026 waitingRobot \u003c ROB_COUNT \u0026\u0026 ROBOT_PENDING[waitingRobot] \u0026\u0026 indexingIdle()) {\n            activeRobot = waitingRobot;\n            c.set(\u0027robotPending\u0027 + waitingRobot, false);\n            c.set(\u0027waitingRobot\u0027, -1);\n            for (let i = 0; i \u003c ROB_COUNT; i++) {\n                execHigh[i] = false; execLowSince[i] = 0; execHighSince[i] = 0;\n            }\n            c.set(\u0027vacDwellUntil\u0027, 0);\n            state = \u0027ROBOT\u0027;\n        }\n        maquinaRun();\n        break;\n\n    case \u0027BATCH_GAP\u0027:\n        feedControl();\n        if (now \u003c (c.get(\u0027stepPulseUntil\u0027) || 0)) {\n            indexingBeltsPulse(true);\n        } else {\n            indexingBeltsPulse(false);\n            const nextAt = c.get(\u0027batchGapNextAt\u0027) || 0;\n            if (!nextAt) {\n                c.set(\u0027batchGapNextAt\u0027, now + STEP_PULSE_MS);\n            } else if (now \u003e= nextAt) {\n                const remaining = (c.get(\u0027batchGapRemaining\u0027) || 0) - 1;\n                c.set(\u0027batchGapRemaining\u0027, remaining);\n                if (remaining \u003c= 0) {\n                    c.set(\u0027batchGapNextAt\u0027, 0);\n                    state = \u0027RUN\u0027;\n                } else {\n                    c.set(\u0027batchGapNextAt\u0027, 0);\n                    c.set(\u0027stepPulseUntil\u0027, now + STEP_PULSE_MS);\n                }\n            }\n        }\n        maquinaRun();\n        break;\n}\nhornoRun();\n\nc.set(\u0027state\u0027, state);\nc.set(\u0027rstep\u0027, rstep);\nc.set(\u0027activeRobot\u0027, activeRobot);\nc.set(\u0027nextRobot\u0027, nextRobot);\nc.set(\u0027execHigh\u0027, execHigh);\nc.set(\u0027execLowSince\u0027, execLowSince);\nc.set(\u0027execHighSince\u0027, execHighSince);\nc.set(\u0027batchUnitCount\u0027, c.get(\u0027batchUnitCount\u0027) || 0);\nc.set(\u0027batchGapPending\u0027, c.get(\u0027batchGapPending\u0027) || false);\nc.set(\u0027batchGapRemaining\u0027, c.get(\u0027batchGapRemaining\u0027) || 0);\nc.set(\u0027batchGapNextAt\u0027, c.get(\u0027batchGapNextAt\u0027) || 0);\n\nif (writes.length === 0) return null;\nmsg.payload = writes;\nreturn msg;",
+        "outputs":  1,
+        "timeout":  0,
+        "noerr":  0,
+        "initialize":  "",
+        "finalize":  "",
+        "libs":  [
+
+                 ],
+        "x":  600,
+        "y":  300,
+        "wires":  [
+                      [
+                          "oip-sim-write-io"
+                      ]
+                  ]
+    }
+]

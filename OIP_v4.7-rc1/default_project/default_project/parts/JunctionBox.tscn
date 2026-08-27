@@ -1,0 +1,37 @@
+[gd_scene format=4 uid="uid://1hdvma3d6ywk"]
+
+[ext_resource type="Script" path="res://src/Productos/junction_box.gd" id="1_jb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jb"]
+friction = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jb"]
+size = Vector3(0.1, 0.03, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="Mat_jb"]
+albedo_color = Color(0.12, 0.12, 0.14, 1)
+roughness = 0.5
+metallic = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_jb"]
+material = SubResource("Mat_jb")
+size = Vector3(0.1, 0.03, 0.16)
+
+[node name="JunctionBox" type="Node3D"]
+top_level = true
+script = ExtResource("1_jb")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 10
+collision_mask = 15
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_jb")
+can_sleep = false
+freeze = true
+ghost_collision_filtering_enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_jb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_jb")

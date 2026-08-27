@@ -1,0 +1,13 @@
+{
+  "name": "oip-node-red",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node-RED como servidor OPC UA que recibe las variables de la simulacion OIP (Simulation.tscn)",
+  "scripts": {
+    "start": "node node_modules/node-red/red.js --settings settings.js"
+  },
+  "dependencies": {
+    "@vitormnm/node-red-simple-opcua": "^1.6.3",
+    "node-red": "^4.0.2"
+  }
+}

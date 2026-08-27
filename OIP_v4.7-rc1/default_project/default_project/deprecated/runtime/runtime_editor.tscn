@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://0beuncie5h1y"]
+
+[ext_resource type="Script" uid="uid://2sssfjs4tou0" path="res://src/runtime/runtime_editor.gd" id="1"]
+[ext_resource type="Script" uid="uid://bve5fsty66xm6" path="res://src/runtime/ui/toolbar.gd" id="2"]
+[ext_resource type="Script" uid="uid://t5ob6b2y3hig" path="res://src/runtime/ui/parts_browser.gd" id="3"]
+[ext_resource type="Script" uid="uid://ctgc83tadrug2" path="res://src/runtime/ui/inspector_panel.gd" id="4"]
+[ext_resource type="Script" uid="uid://c7qshesul4rwj" path="res://src/runtime/ui/comms_panel.gd" id="5"]
+[ext_resource type="Script" uid="uid://bmg1010ldsabg" path="res://src/runtime/ui/status_bar.gd" id="6"]
+[ext_resource type="Script" uid="uid://eirgivcfiaky" path="res://src/runtime/ui/notification_bar.gd" id="7"]
+[ext_resource type="Script" uid="uid://ci2hl35fhfaw6" path="res://src/runtime/ui/panel_resizer.gd" id="8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.12, 0.13, 0.16, 1)
+sky_horizon_color = Color(0.18, 0.2, 0.24, 1)
+ground_bottom_color = Color(0.08, 0.09, 0.11, 1)
+ground_horizon_color = Color(0.14, 0.16, 0.19, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 2
+ambient_light_color = Color(0.4, 0.42, 0.46, 1)
+ambient_light_energy = 1.4
+tonemap_mode = 2
+glow_intensity = 0.0
+adjustment_enabled = true
+adjustment_contrast = 1.15
+
+[sub_resource type="BoxMesh" id="floor_mesh"]
+size = Vector3(100, 0.02, 100)
+
+[sub_resource type="StandardMaterial3D" id="floor_mat"]
+albedo_color = Color(0.40699625, 0.41052887, 0.39634466, 1)
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="BoxShape3D" id="floor_shape"]
+size = Vector3(100, 0.5, 100)
+
+[node name="RuntimeEditor" type="Control" unique_id=523663093]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=533652820]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Toolbar" type="HBoxContainer" parent="VBox" unique_id=685674528]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+script = ExtResource("2")
+
+[node name="NotificationBar" type="PanelContainer" parent="VBox" unique_id=637178882]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+script = ExtResource("7")
+
+[node name="MainArea" type="HBoxContainer" parent="VBox" unique_id=2061980369]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="VBoxContainer" parent="VBox/MainArea" unique_id=1895366723]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PartsBrowser" type="PanelContainer" parent="VBox/MainArea/LeftPanel" unique_id=67974786]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3")
+
+[node name="LeftResizer" type="Control" parent="VBox/MainArea" unique_id=1956650992]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+script = ExtResource("8")
+target_path = NodePath("../LeftPanel")
+max_width = 500.0
+
+[node name="Viewport3D" type="SubViewportContainer" parent="VBox/MainArea" unique_id=626143554]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBox/MainArea/Viewport3D" unique_id=75250285]
+unique_name_in_owner = true
+handle_input_locally = false
+msaa_3d = 3
+screen_space_aa = 1
+size = Vector2i(644, 540)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VBox/MainArea/Viewport3D/SubViewport" unique_id=705204417]
+environment = SubResource("env")
+
+[node name="FillLight" type="DirectionalLight3D" parent="VBox/MainArea/Viewport3D/SubViewport" unique_id=1758168889]
+transform = Transform3D(-0.500011, 0.52182776, -0.6911474, 0, -0.7980741, -0.6025592, -0.86601907, -0.30128625, 0.39904585, 5, 9.116785, 0)
+light_color = Color(0.85, 0.9, 1, 1)
+light_energy = 0.45
+
+[node name="Floor" type="StaticBody3D" parent="VBox/MainArea/Viewport3D/SubViewport" unique_id=747270200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+collision_layer = 1
+collision_mask = 15
+
+[node name="FloorMesh" type="MeshInstance3D" parent="VBox/MainArea/Viewport3D/SubViewport/Floor" unique_id=1541111727]
+mesh = SubResource("floor_mesh")
+surface_material_override/0 = SubResource("floor_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VBox/MainArea/Viewport3D/SubViewport/Floor" unique_id=1723188431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
+shape = SubResource("floor_shape")
+
+[node name="SelectionRect" type="ColorRect" parent="VBox/MainArea/Viewport3D" unique_id=1736628139]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.2, 0.6, 1, 0.15)
+
+[node name="RightResizer" type="Control" parent="VBox/MainArea" unique_id=1871097173]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+script = ExtResource("8")
+side = 1
+target_path = NodePath("../RightPanel")
+min_width = 200.0
+
+[node name="RightPanel" type="VBoxContainer" parent="VBox/MainArea" unique_id=1819878623]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InspectorPanel" type="PanelContainer" parent="VBox/MainArea/RightPanel" unique_id=1393244064]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4")
+
+[node name="StatusBar" type="PanelContainer" parent="VBox" unique_id=15682528]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+script = ExtResource("6")
+
+[node name="COMMSPanel" type="PanelContainer" parent="." unique_id=933352728]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5")

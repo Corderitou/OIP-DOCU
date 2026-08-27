@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bjw5j0lt8nk6k"]
+
+[ext_resource type="Script" uid="uid://dtbbxcllwf8vj" path="res://src/Horno/horno.gd" id="1_horno"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.5, 0.53, 0.57, 1)
+metallic = 0.6
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+material = SubResource("Mat_body")
+size = Vector3(1.4, 0.53859866, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_head"]
+albedo_color = Color(0.35, 0.38, 0.42, 1)
+metallic = 0.7
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_head"]
+material = SubResource("Mat_head")
+size = Vector3(1.2, 0.5, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="Mat_heater"]
+albedo_color = Color(0.3, 0.18, 0.12, 1)
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_heater"]
+material = SubResource("Mat_heater")
+size = Vector3(1.2, 0.08, 0.9)
+
+[node name="Horno" type="Node3D" unique_id=1131663685]
+script = ExtResource("1_horno")
+station_prefix = "H1"
+cycle_time = 6.0
+tag_group_name = "PLCSIM"
+head_up_y = 0.3
+head_down_y = -0.15
+head_move_time = 1.0
+detect_half_width = 0.35
+auto_start = true
+debug = false
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=390645655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3307007, 0)
+mesh = SubResource("BoxMesh_body")
+
+[node name="Head" type="Node3D" parent="." unique_id=1967411281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Head" unique_id=86383208]
+mesh = SubResource("BoxMesh_head")
+
+[node name="HeaterVisual" type="MeshInstance3D" parent="Head" unique_id=1998417302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29, 0)
+mesh = SubResource("BoxMesh_heater")

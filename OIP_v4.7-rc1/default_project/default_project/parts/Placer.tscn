@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dp3kfrmljeiqq"]
+
+[ext_resource type="Script" uid="uid://pmjd15ueghko" path="res://src/Placer/placer.gd" id="1_placer"]
+[ext_resource type="PackedScene" uid="uid://bjwmv4wef2don" path="res://assets/glb/Placer.glb" id="2_glb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_placer"]
+friction = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_base"]
+resource_local_to_scene = true
+size = Vector3(0.1094, 0.006, 0.189)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rail"]
+resource_local_to_scene = true
+size = Vector3(0.1094, 0.014, 0.014)
+
+[node name="Placer" type="Node3D" unique_id=1539698135]
+top_level = true
+script = ExtResource("1_placer")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1250682596]
+collision_layer = 10
+collision_mask = 15
+mass = 0.05
+physics_material_override = SubResource("PhysicsMaterial_placer")
+can_sleep = false
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1109017378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012194483, 0)
+shape = SubResource("BoxShape3D_base")
+
+[node name="RailLeft" type="CollisionShape3D" parent="RigidBody3D" unique_id=364029936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013, -0.0875)
+shape = SubResource("BoxShape3D_rail")
+
+[node name="RailRight" type="CollisionShape3D" parent="RigidBody3D" unique_id=1248363207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0046127327, 0.0875)
+shape = SubResource("BoxShape3D_rail")
+
+[node name="PlacerModel" parent="RigidBody3D" unique_id=438616948 instance=ExtResource("2_glb")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)

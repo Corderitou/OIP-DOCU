@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://c8kstr3amcam1"]
+
+[ext_resource type="Script" path="res://src/CameraStreamer/camera_streamer.gd" id="1_camst"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.4
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+material = SubResource("StandardMaterial3D_body")
+size = Vector3(0.24, 0.24, 0.32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lens"]
+albedo_color = Color(0.05, 0.05, 0.06, 1)
+metallic = 0.8
+roughness = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lens"]
+material = SubResource("StandardMaterial3D_lens")
+top_radius = 0.07
+bottom_radius = 0.09
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_screen"]
+material = SubResource("StandardMaterial3D_screen")
+size = Vector2(0.2, 0.1125)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_led"]
+shading_mode = 0
+albedo_color = Color(1, 0.1, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.1, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_led"]
+material = SubResource("StandardMaterial3D_led")
+radius = 0.015
+height = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mount"]
+albedo_color = Color(0.2, 0.21, 0.23, 1)
+metallic = 0.5
+roughness = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mount"]
+material = SubResource("StandardMaterial3D_mount")
+top_radius = 0.03
+bottom_radius = 0.05
+height = 0.06
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cam"]
+size = Vector3(0.26, 0.3, 0.44)
+
+[node name="CameraStreamer" type="Node3D" unique_id=1834920471]
+script = ExtResource("1_camst")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1210583349]
+own_world_3d = false
+transparent_bg = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1493028167]
+fov = 70.0
+
+[node name="Mount" type="MeshInstance3D" parent="." unique_id=1077391254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+mesh = SubResource("CylinderMesh_mount")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1662843718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+mesh = SubResource("BoxMesh_body")
+
+[node name="Lens" type="MeshInstance3D" parent="." unique_id=1284670035]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.18, 0.2)
+mesh = SubResource("CylinderMesh_lens")
+
+[node name="Screen" type="MeshInstance3D" parent="." unique_id=1873190226]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.18, -0.161)
+mesh = SubResource("QuadMesh_screen")
+
+[node name="StatusLed" type="MeshInstance3D" parent="." unique_id=1039571528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0.31, 0.12)
+mesh = SubResource("SphereMesh_led")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1729045613]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1355820944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+shape = SubResource("BoxShape3D_cam")

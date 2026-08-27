@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cdplacextr1st"]
+
+[ext_resource type="Script" path="res://src/PlacerExtractor/placer_extractor.gd" id="1_extractor"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_detect"]
+size = Vector3(0.18, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_visual"]
+transparency = 1
+albedo_color = Color(1, 0.6, 0.2, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_visual"]
+size = Vector3(0.18, 0.6, 0.6)
+
+[node name="PlacerExtractor" type="Node3D"]
+script = ExtResource("1_extractor")
+
+[node name="DetectArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
+shape = SubResource("BoxShape3D_detect")
+
+[node name="DetectVolume" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_visual")
+mesh = SubResource("BoxMesh_visual")

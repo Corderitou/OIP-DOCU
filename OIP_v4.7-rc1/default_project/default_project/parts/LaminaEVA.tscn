@@ -1,0 +1,37 @@
+[gd_scene format=4 uid="uid://16ngacl8l280"]
+
+[ext_resource type="Script" path="res://src/Productos/lamina_eva.gd" id="1_eva"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eva"]
+friction = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eva"]
+size = Vector3(0.99, 0.001, 0.99)
+
+[sub_resource type="StandardMaterial3D" id="Mat_eva"]
+albedo_color = Color(1, 0.98, 0.92, 0.55)
+transparency = 1
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_eva"]
+material = SubResource("Mat_eva")
+size = Vector3(0.99, 0.001, 0.99)
+
+[node name="LaminaEVA" type="Node3D"]
+top_level = true
+script = ExtResource("1_eva")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 10
+collision_mask = 15
+mass = 1.0
+physics_material_override = SubResource("PhysicsMaterial_eva")
+can_sleep = false
+freeze = true
+ghost_collision_filtering_enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_eva")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_eva")

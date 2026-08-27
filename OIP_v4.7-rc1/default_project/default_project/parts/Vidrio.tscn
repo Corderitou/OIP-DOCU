@@ -1,0 +1,38 @@
+[gd_scene format=4 uid="uid://2iaeqkay80wg"]
+
+[ext_resource type="Script" path="res://src/Productos/vidrio.gd" id="1_vidrio"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vidrio"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vidrio"]
+size = Vector3(0.99, 0.002, 0.99)
+
+[sub_resource type="StandardMaterial3D" id="Mat_vidrio"]
+albedo_color = Color(0.72, 0.88, 1, 0.4)
+transparency = 1
+roughness = 0.05
+metallic = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_vidrio"]
+material = SubResource("Mat_vidrio")
+size = Vector3(0.99, 0.002, 0.99)
+
+[node name="Vidrio" type="Node3D"]
+top_level = true
+script = ExtResource("1_vidrio")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 10
+collision_mask = 15
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_vidrio")
+can_sleep = false
+freeze = true
+ghost_collision_filtering_enabled = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_vidrio")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_vidrio")

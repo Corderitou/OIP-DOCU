@@ -1,0 +1,143 @@
+{
+  "inputs": [
+    { "name": "SensorCeldas", "nodeId": "ns=2;s=SensorCeldas", "type": "Boolean" },
+    { "name": "SensorPlacers", "nodeId": "ns=2;s=SensorPlacers", "type": "Boolean" },
+    { "name": "Sensor1", "nodeId": "ns=2;s=Sensor1", "type": "Boolean" },
+    { "name": "6axisSensor1", "nodeId": "ns=2;s=6axisSensor1", "type": "Boolean" }
+  ],
+  "pauseSensor": null,
+  "robotSensor": null,
+  "removeTags": ["Sensor2"],
+  "belts": {
+    "speed": 0.2,
+    "groups": [
+      {
+        "name": "celdas",
+        "speed": 0.2,
+        "items": [
+          { "name": "BeltConveyor_Speed",  "path": "ns=2;s=BeltConveyor_Speed",  "type": "Float" },
+          { "name": "BeltConveyor2_Speed", "path": "ns=2;s=BeltConveyor2_Speed", "type": "Float" }
+        ]
+      },
+      {
+        "name": "placers",
+        "speed": 0.2,
+        "items": [
+          { "name": "BeltConveyor3_Speed", "path": "ns=2;s=BeltConveyor3_Speed", "type": "Float" }
+        ]
+      }
+    ]
+  },
+  "feeds": [
+    {
+      "name": "celdas",
+      "sensor": "SensorCeldas",
+      "beltGroup": "celdas",
+      "spawners": ["S1"]
+    },
+    {
+      "name": "placers",
+      "sensor": "SensorPlacers",
+      "beltGroup": "placers",
+      "spawners": ["S2"]
+    }
+  ],
+  "spawners": [
+    {
+      "name": "S1",
+      "rate": 30,
+      "autoEnable": { "name": "S1_AUTO_ENABLE", "path": "ns=2;s=S1_AUTO_ENABLE", "type": "Boolean" },
+      "rateTag":    { "name": "S1_RATE",       "path": "ns=2;s=S1_RATE",       "type": "Float" }
+    },
+    {
+      "name": "S2",
+      "rate": 30,
+      "autoEnable": { "name": "S2_AUTO_ENABLE", "path": "ns=2;s=S2_AUTO_ENABLE", "type": "Boolean" },
+      "rateTag":    { "name": "S2_RATE",       "path": "ns=2;s=S2_RATE",       "type": "Float" }
+    }
+  ],
+  "robots": [
+    {
+      "name": "Gantry1",
+      "robotSensor": "SensorCeldas",
+      "cycleNext": "Gantry2",
+      "command": { "name": "Gantry1_Command", "path": "ns=2;s=Gantry1_Command", "type": "Int16" },
+      "execute": { "name": "Gantry1_Execute", "path": "ns=2;s=Gantry1_Execute" },
+      "done":    { "name": "Gantry1_Done",    "path": "ns=2;s=Gantry1_Done" },
+      "vacuum":  { "name": "Gantry1_Vacuum",  "path": "ns=2;s=Gantry1_Vacuum" },
+      "sequence": [
+        { "cmd": 1, "vacuum": true },
+        { "cmd": 0 },
+        { "cmd": 2 },
+        { "cmd": 3, "vacuum": false, "indexingPulse": true }
+      ]
+    },
+    {
+      "name": "Gantry2",
+      "robotSensor": "SensorPlacers",
+      "command": { "name": "Gantry2_Command", "path": "ns=2;s=Gantry2_Command", "type": "Int16" },
+      "execute": { "name": "Gantry2_Execute", "path": "ns=2;s=Gantry2_Execute" },
+      "done":    { "name": "Gantry2_Done",    "path": "ns=2;s=Gantry2_Done" },
+      "vacuum":  { "name": "Gantry2_Vacuum",  "path": "ns=2;s=Gantry2_Vacuum" },
+      "waitForIndexing": true,
+      "sequence": [
+        { "cmd": 1, "vacuum": true },
+        { "cmd": 0 },
+        { "cmd": 2 },
+        { "cmd": 3, "vacuum": false }
+      ]
+    },
+    {
+      "name": "6axisRobot",
+      "robotSensor": "6axisSensor1",
+      "oneShot": true,
+      "command": { "name": "Robot1_Command", "path": "ns=2;s=Robot1_Command", "type": "Int16" },
+      "execute": { "name": "Robot1_Execute", "path": "ns=2;s=Robot1_Execute" },
+      "done":    { "name": "Robot1_Done",    "path": "ns=2;s=Robot1_Done" },
+      "vacuum":  { "name": "Robot1_Vacuum",  "path": "ns=2;s=Robot1_Vacuum" },
+      "gridCmds": [4, 5, 6, 7, 8, 9, 10, 11],
+      "sequence": [
+        { "cmd": 1, "vacuum": true },
+        { "cmd": 2 },
+        { "cmd": 3, "vacuum": false, "gate": false },
+        { "cmd": 1, "vacuum": true },
+        { "gridNext": true, "vacuum": false, "gate": false }
+      ]
+    }
+  ],
+  "indexingBelts": [
+    {
+      "step":    { "name": "IndexingBelt3_Step",    "path": "ns=2;s=IndexingBelt3_Step",    "type": "Boolean" },
+      "running": { "name": "IndexingBelt3_Running", "path": "ns=2;s=IndexingBelt3_Running", "type": "Boolean" }
+    }
+  ],
+  "batch": {
+    "size": 6,
+    "indexingGapSteps": 2
+  },
+  "maquina": {
+    "z":       { "name": "Maquina1_Z",       "path": "ns=2;s=Maquina1_Z",       "type": "Float" },
+    "y":       { "name": "Maquina1_Y",       "path": "ns=2;s=Maquina1_Y",       "type": "Float" },
+    "speed":   { "name": "Maquina1_Speed",   "path": "ns=2;s=Maquina1_Speed",   "type": "Float" },
+    "release": { "name": "Maquina1_Release", "path": "ns=2;s=Maquina1_Release", "type": "Boolean" },
+    "cut":     { "name": "Maquina1_Cut",     "path": "ns=2;s=Maquina1_Cut",     "type": "Boolean" },
+    "zMoves":  [ 0.622, 0.352 ],
+    "yValue": 0.0,
+    "speedValue": 1.0,
+    "moveMs":  400,
+    "pulseMs": 200
+  },
+  "machines": [
+    { "name": "H1" }
+  ],
+  "horno": {
+    "command":  { "name": "H1_CMD",      "path": "ns=2;s=H1_CMD" },
+    "execute":  { "name": "H1_EXEC",     "path": "ns=2;s=H1_EXEC" },
+    "done":     { "name": "H1_DONE",     "path": "ns=2;s=H1_DONE" },
+    "running":  { "name": "H1_RUNNING",  "path": "ns=2;s=H1_RUNNING" },
+    "mv":       { "name": "H1_MV",       "path": "ns=2;s=H1_MV" },
+    "setpoint": { "name": "H1_SETPOINT", "path": "ns=2;s=H1_SETPOINT" },
+    "mvValue": 100,
+    "setpointValue": 150
+  }
+}
